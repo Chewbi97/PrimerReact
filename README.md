@@ -1,70 +1,109 @@
-# Getting Started with Create React App
+# PRIMER PROYECTO REACT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+La base de este proyecto es **React** usando **CRA => Create React App**, ademas se usan librerias de **CSS y JS**, como lo son **Bootstrap y SweetAlert**:
 
-## Available Scripts
+- [Bootstrap](https://getbootstrap.com/) estilos rápidos y responsivos **(CSS)**.
+- [SweetAlert2](https://sweetalert2.github.io/) alertas y confirmaciones atractivas **(JavaScript)**.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+# 📍 Primer paso: 
+## Instalación y ejecución.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Crear el proyecto con Create React App**
+    
+    ```bash
+    npx create-react-app nombre-del-proyecto
+    ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. **Ingresar a la carpeta del proyecto**
+    
+    ```bash
+    cd nombre-del-proyecto
+    ```
 
-### `npm test`
+3. **Ejecutar el proyecto en modo desarrollo**
+    
+    ```bash
+    npm start
+    ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+# 📍 Segundo paso:
+##  Instalación y verificación de las dependencias a usar.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Bootstrap**
+```bash
+npm install bootstrap
+```
+**SweetAlert2**
+```bash
+npm install SweetAlert2
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🛠️ Tecnologías Utilizadas
 
-### `npm run eject`
+| Tecnología              | Logo                                                                 | Descripción                                                                                   |
+|------------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| **HTML5**              | ![HTML5](https://img.icons8.com/color/48/html-5--v1.png)              | Lenguaje de marcado usado para estructurar las páginas web.                                  |
+| **CSS3**               | ![CSS3](https://img.icons8.com/color/48/css3.png)                     | Hojas de estilo para personalizar la apariencia de la web.                                   |
+| **Bootstrap 5**        | ![Bootstrap](https://img.icons8.com/color/48/bootstrap.png)           | Framework CSS para facilitar el diseño responsive y atractivo.                               |
+| **JavaScript**         | ![JS](https://img.icons8.com/color/48/javascript--v1.png)             | Lenguaje de programación para la lógica y la interactividad en la web.                       |
+| **React**              | ![React](https://img.icons8.com/color/48/react-native.png)            | Biblioteca de JavaScript para construir interfaces de usuario basadas en componentes.        |
+| **Create React App**   | <img src="https://th.bing.com/th/id/R.2bee11a830bacc5ae9006df56b20c33a?rik=nXUBy4boCTrW8w&pid=ImgRaw&r=0" width="40"/>     | Herramienta oficial para crear proyectos React con configuración inicial lista para usar.    |
+| **SweetAlert2**        | <img src="https://tse1.explicit.bing.net/th/id/OIP.sbHWbfQY-VMmVDzT71z8vgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" width="40"/>   | Librería JS para mostrar alertas modernas, elegantes y perso nalizadas. |
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📁 Estructura del Proyecto
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```plaintext
+/
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+├── public/
+│   └── favicon.ico           # Ícono de la aplicación
+│   ├── index.html            # Plantilla HTML principal de la app
+│   └── logo192.png           # Ícono de la aplicación
+│   └── logo512.png           # Ícono de la aplicación
+│   └── manifest.json         # Ícono de la aplicación
+│   └── robots.txt            # Ícono de la aplicación
+├── src/
+│   ├── Page                  # Punto de entrada principal
+│        ├── LoginPage.css    # Visuales de la página de Login
+│        ├── LoginPage.jsx    # Página de Login
+│   ├── App.css               # Estilo global de la app
+│   ├── App.js                # Funcionamiento del Login
+│   ├── App.test.js           # Escenario de pruebas rapidas
+│   ├── index.css             # Estilo del index
+│   │── index.js              # Procesos y funcionamiento de index  
+│   ├── logo.svg              # Logotipo del proyecto, usado en la interfaz
+│   ├── reportWebVitals.js    # Reporte de funcionamiento de la pagina
+│   └── setupTests.js         # Progama de pruebas
+├── .gitignore                # Archivos y carpetas git debe ignorar
+├── package-lock.json         # Registro exacto de las versiones de las dependecias usadas
+├── package.json              # Configuración de dependencias del proyecto
+└── README.md                 # Documentación del proyecto
 
-## Learn More
+```
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📅 Avance del Proyecto
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| Nº  | Fecha       | Descripción / Entregable                              |
+|-----|-------------|-------------------------------------------------------|
+| 1   | 2025-08-12  | Creación del proyecto con CRA                         |
+| 2   | 2025-08-12  | Instalación y configuración de Bootstrap y SweetAlert2 |
+| 3   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
+| 4   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
+| 5   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
+| 6   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
+| 7   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
+| 8   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
+| 9   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
 
-### Code Splitting
+> **Nota:** Ir actualizando la tabla con cada cambio o entregable.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
