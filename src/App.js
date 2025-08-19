@@ -7,7 +7,7 @@ function App() {
   return (
     <div>
       <h1>Mi App</h1>
-      <LoginPage />
+
       <Playground />
     </div>
   );

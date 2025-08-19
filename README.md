@@ -95,7 +95,7 @@ npm install SweetAlert2
 | Nº  | Fecha       | Descripción / Entregable                              |
 |-----|-------------|-------------------------------------------------------|
 | 1   | 2025-08-12  | Creación del proyecto con CRA                         |
-| 2   | 2025-08-12  | Instalación y configuración de Bootstrap y SweetAlert2 |
+| 2   | 2025-08-15  | Creación de la estructura del README y PLAYGROUND     |
 | 3   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
 | 4   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
 | 5   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
