@@ -20,6 +20,11 @@ La base de este proyecto es **React** usando **CRA => Create React App**, ademas
     
     ```bash
     cd nombre-del-proyecto
+
+2. **Instalar React-Router-Dom**
+    
+    ```bash
+    npm install react-router-dom
     ```
 
 3. **Ejecutar el proyecto en modo desarrollo**

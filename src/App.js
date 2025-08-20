@@ -1,16 +1,33 @@
-import React from "react";
-import "./App.css";
-import LoginPage from "./Page/LoginPage/LoginPage";
-import Playground from "./Playground/useState/loginPage";
+import { BrowserRouter,Routes,Route } from "react-router-dom"
+import LoginPage from "./Page/LoginPage/LoginPage"
+import RegisterPage from "./Page/RegisterPage/RegisterPage"
+import ForgetPage from "./Page/ForgetPage/ForgetPage"
+
+//Import para HOOKS
+import HooksGral from "./Playground/HooksGral"
+import HookUseState from "./Playground/HookUseState" 
+
 
 function App() {
+  
   return (
-    <div>
-      <h1>Mi App</h1>
+    
+    <BrowserRouter>
+      <Routes>
+        <Route path="/LoginPage" element={<LoginPage/>} /> 
+        <Route path="/Forgetpage" element={<ForgetPage/>} />
+        <Route path="/RegisterPage" element={<RegisterPage/>} />
 
-      <Playground />
-    </div>
-  );
-}
+        {/* Rutas para Hooks*/}
+        <Route path="/HooksGral" element={<HooksGral/>} />
+        <Route path="/usestate" element={<HookUseState/>} />
+        
+      
+      </Routes>
+      </BrowserRouter>
+
+
+  );    
+};
 
 export default App;
