@@ -14,8 +14,8 @@ function App() {
     
     <BrowserRouter>
       <Routes>
-        <Route path="/LoginPage" element={<LoginPage/>} /> 
-        <Route path="/Forgetpage" element={<ForgetPage/>} />
+        <Route path="/" element={<LoginPage/>} /> 
+        <Route path="/ForgetPage" element={<ForgetPage/>} />
         <Route path="/RegisterPage" element={<RegisterPage/>} />
 
         {/* Rutas para Hooks*/}

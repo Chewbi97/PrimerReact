@@ -5,7 +5,7 @@ function REGISTER(){
     return(
         <div>
             <h1>REGISTRO</h1>
-            <Link to ="/loginPage">
+            <Link to ="/">
                 <button>VOLVER AL INICIO</button>
             </Link>
             

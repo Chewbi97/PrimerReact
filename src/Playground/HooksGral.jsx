@@ -7,7 +7,7 @@ function HooksGral(){
             <Link to="/usestate">
                 <button>IR A HOOK USESTATE</button>
             </Link>
-            <Link to="/LoginPage">
+            <Link to="/">
                 <button>VOLVER AL INICIO</button>
             </Link>
 

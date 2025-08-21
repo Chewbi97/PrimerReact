@@ -5,7 +5,7 @@ function RECUPERACION(){
     return(
         <div>
             <h1>OLVIDE MI CONTRASEÑA</h1>
-            <Link to ="/loginPage">
+            <Link to ="/">
                 <button>VOLVER AL INICIO</button>
             </Link>
             
