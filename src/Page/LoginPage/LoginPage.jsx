@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 //Estilos CSS//
-import "./LoginPage.css"
+//import "./LoginPage.css"
 
 
 
