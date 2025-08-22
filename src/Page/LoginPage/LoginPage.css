@@ -1,68 +1,32 @@
-.home-container {
-    background: rgb(255, 166, 102);
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
+body {
+  background: radial-gradient(circle, rgba(139, 43, 255, 1) 0%, rgba(237, 225, 226, 1) 100%);
+  min-height: 100vh; 
+  margin: 0;
+  padding: 0;
 }
 
-.login-box {
-    height: 250px;
-    width: 300px;
-    background: rgb(242, 242, 230);
-    padding: 30px 15px;
-    border: 2px solid rgb(70, 69, 69);
-    border-radius: 12px;
-    text-align: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    font-family: Arial, Helvetica, sans-serif    
-}
- .login-btn {
-    background-color: bisque;
-    width: 250px;
-    height: 30%;
-    padding: 10px 20px;
-    margin: 1px;
-    font-size: 12px;
-    text-align: center;
-    line-height: 30%;
-    cursor: pointer;
-    border: 2px solid rgb(61, 61, 61);   
-    border-radius: 8px;
-    
- }
-
-.user-input {
-    background-color: azure;
-    width: 250px;
-    height: 10px;
-    padding: 10px 20px;
-    margin: 1px;
-    font-size: 12px;
-    text-align: center;
-    line-height: 30%;
-    border: 2px solid rgb(61, 61, 61);   
-    border-radius: 8px;
-    font-size: medium;
-    font-family: Arial, Helvetica, sans-serif;
+label {
+  font-weight: bold;
 }
 
-.password-input {
-    background-color: azure;
-    width: 250px;
-    height: 10px;
-    padding: 10px 20px;
-    margin: 1px;
-    margin-bottom: 20px;
-    font-size: 12px;
-    text-align: center;
-    line-height: 30%;
-    border: 2px solid rgb(61, 61, 61);   
-    border-radius: 8px;
-    font-size: medium;
-    font-family: Arial, Helvetica, sans-serif;
+input::placeholder {
+  font-style: italic;
+  color: black;
+}
+
+.custom-btn {
+  background-color: #8F42E3 !important;
+  color: white !important;
+  border: 2px solid #421e68 !important;
+  border-radius: 8px !important; 
+  height: 30px !important;       
+  font-weight: 15px !important;  
+}
+
+.custom-btn:hover {
+  background-color: #732dbd !important; 
+}
+
+a {
+  text-decoration: none !important;
 }
