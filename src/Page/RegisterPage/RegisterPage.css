@@ -1,0 +1,30 @@
+.custom-bttn {
+    border: 2px solid black;
+    margin-top: 5px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: white; 
+    color: black; 
+}
+
+.custom-bttn:hover,
+.custom-bttn:focus,
+.custom-bttn:active {
+    background-color: #cccbcb9a;
+    border: 2px solid black;      
+    color: black;               
+    box-shadow: none;  
+}
+
+.password-field {
+  position: relative;
+  margin-bottom: 20px; /* espacio entre campos */
+}
+
+.validation-message {
+  font-size: 12px;
+  color: red;
+  position: absolute;
+  bottom: -18px; /* se coloca debajo del input */
+  left: 0;
+}
