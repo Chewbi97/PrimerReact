@@ -1,25 +1,29 @@
+// Import the functions you need from the SDKs you need
+import { getAuth, GoogleAuthProvider, signOut} from "firebase/auth/cordova";
+import { getFirestore } from "firebase/firestore/lite";
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signOut } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyCSoB5RsBrzriSfeRFqaVUfhKumJHLIMBA",
-    authDomain: "brillatlm.firebaseapp.com",
-    projectId: "brillatlm",
-    storageBucket: "brillatlm.firebasestorage.app",
-    messagingSenderId: "970081452395",
-    appId: "1:970081452395:web:5b44b77ca66fe4bf7f0c2e"
+  apiKey: "AIzaSyBcWqp1-5ZjSnXeYwNvJMx-U0-ypWUSDak",
+  authDomain: "project-jsmd.firebaseapp.com",
+  projectId: "project-jsmd",
+  storageBucket: "project-jsmd.firebasestorage.app",
+  messagingSenderId: "1020094259810",
+  appId: "1:1020094259810:web:3d2848658ad922c3e5e73b",
+  measurementId: "G-HK4LZMJMB5"
 };
 
-// Inicializar Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Exportar auth y provider de Google
+const analytics = getAnalytics(app);
 const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
-
-// Firestore
+const googleProvider =new GoogleAuthProvider();
 const db = getFirestore(app);
 
-export { auth, googleProvider, db, signOut };
+export ( auth, googleProvider, db, signOut );
