@@ -1,32 +1,82 @@
+/* Fondo general */
 body {
-  background: radial-gradient(circle, rgba(139, 43, 255, 1) 0%, rgba(237, 225, 226, 1) 100%);
-  min-height: 100vh; 
-  margin: 0;
-  padding: 0;
+  background: radial-gradient(circle, rgba(139, 43, 255, 1) 0%, rgba(237, 225, 226, 1) 100%) !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-label {
-  font-weight: bold;
+/* Tarjeta del login */
+.form-card {
+  background-color: #f5f5f0 !important; /* blanco avellanado */
+  padding: 2rem !important;
+  border-radius: 15px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
+  width: 100% !important;
+  max-width: 380px !important;
+  text-align: center !important;
 }
 
-input::placeholder {
-  font-style: italic;
-  color: black;
+/* Logo */
+.logo {
+  width: 150px !important;  
+  height: auto !important;
+  margin-bottom: 1rem !important;
+  object-fit: contain !important;
 }
 
-.custom-btn {
-  background-color: #8F42E3 !important;
-  color: white !important;
-  border: 2px solid #421e68 !important;
-  border-radius: 8px !important; 
-  height: 30px !important;       
-  font-weight: 15px !important;  
+/* Título */
+h3 {
+  color: #222 !important;
+  font-weight: bold !important;
+  margin-bottom: 1.5rem !important;
 }
 
-.custom-btn:hover {
-  background-color: #732dbd !important; 
+/* Labels */
+.form-card label {
+  font-weight: bold !important;
+  color: #000 !important;  /* negro */
 }
 
-a {
+/* Inputs */
+.form-card .form-control {
+  border-radius: 8px !important;
+  padding: 10px !important;
+  border: 1px solid #ccc !important;
+}
+
+.form-card .form-control::placeholder {
+  font-style: italic !important;
+  color: #666 !important; 
+}
+
+/* Botón principal */
+.form-card .btn-primary {
+  background-color: #4a47a3 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 10px !important;
+  font-weight: bold !important;
+}
+
+.form-card .btn-primary:hover {
+  background-color: #38357a !important;
+}
+
+/* Botón Google */
+.form-card .btn-danger {
+  border-radius: 8px !important;
+  padding: 10px !important;
+  font-weight: bold !important;
+}
+
+/* Links */
+.form-card a {
+  color: #4a47a3 !important;
+  font-weight: 500 !important;
   text-decoration: none !important;
+}
+
+.form-card a:hover {
+  text-decoration: underline !important;
 }

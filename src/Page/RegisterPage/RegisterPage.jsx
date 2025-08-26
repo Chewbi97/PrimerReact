@@ -1,122 +1,150 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import "./RegisterPage.css"
+import { useState } from 'react';
+import Swal from 'sweetalert2';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase';
+import { db } from '../../firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import './RegisterPage.css';
+import logo from '../../assets/logo inventario.png';
 
-function REGISTER() {
+function RegisterPage() {
+  const [formData, setFormData] = useState({
+    cedula: '',
+    nombres: '',
+    apellidos: '',
+    fechaNacimiento: '',
+    sexo: '',
+    telefono: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
 
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [confirmError, setConfirmError] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const validatePassword = (value) => {
-        setPassword(value);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
-        // Validador //
-        const hasUpperCase = /[A-Z]/.test(value);
-        const hasLowerCase = /[a-z]/.test(value);
-        const hasNumber = /[0-9]/.test(value);
-        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
-        const hasMinLength = value.length >= 8;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        if (!hasUpperCase || !hasLowerCase || !hasNumber || !hasSpecialChar || !hasMinLength) {
-            setError("Debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.");
-        } else {
-            setError(""); // ✅ Cumple con todo
-        }
-    };
-    const validateConfirmPassword = (value) => {
-        setConfirmPassword(value);
+    // Validaciones
+    for (const key in formData) {
+      if (formData[key] === '') {
+        Swal.fire("Campos incompletos", "Por favor llena todos los campos.", "warning");
+        return;
+      }
+    }
 
-        if (value !== password) {
-            setConfirmError("Las contraseñas no coinciden.");
-        } else {
-            setConfirmError("");
-        }
-    };
-    return (
-        <div className="container d-flex justify-content-center align-items-start"
-            style={{ minHeight: "100vh", paddingTop: "20px", paddingBottom: "20px", overflowY: "auto" }}>
-            <div className="card p-4 shadow" style={{ width: "500px" }}>
-                <h2 className="text-center mb-4">REGISTRO PARA NUEVO USUARIO</h2>
-                <div className="mb-3">
-                    <label className="form-label fw-bold">Nombre</label>
-                    <input type="text" className="form-control mb-3" placeholder="Nombres de Usuario"></input>
-                    <label className="form-label fw-bold">Apellido</label>
-                    <input type="text" className="form-control mb-3" placeholder="Apellidos de Usuario"></input>
-                    <label className="form-label fw-bold">Pais</label>
-                    <input type="text" className="form-control mb-3" placeholder="Colombia"></input>
-                    <label className="form-label fw-bold">Documento</label>
-                    <div className="d-flex">
-                        <select className="form-select me-2" style={{ width: "75px", height: "35px" }}>
-                            <option>C.C</option>
-                            <option>T.I</option>
-                            <option>C.E</option>
-                        </select>
-                        <input type="text" className="form-control mb-3" placeholder="123456789"></input>
-                    </div>
-                    <label className="form-label fw-bold">Telefono</label>
-                    <input type="text" className="form-control mb-3" placeholder="355555555"></input>
-                    <label className="form-label fw-bold">Correo Electrónico</label>
-                    <input type="text" className="form-control mb-3" placeholder="usuario@e-mail.com"></input>
-                    <div>
-                        <label className="form-label fw-bold">Contraseña</label>
-                        <div className="input-group mb-2">
-                            <input
-                                type={showPassword ? "text" : "password"}
-                                className="form-control"
-                                value={password}
-                                onChange={(e) => validatePassword(e.target.value)}
-                                placeholder="Escriba su Contraseña"
-                            />
-                            <button
-                                type="button"
-                                className="btn btn-outline-secondary"
-                                onClick={() => setShowPassword(!showPassword)}
-                            >
-                                <i className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`}></i>
-                            </button>
-                        </div>
-                        <div style={{ minHeight: "20px" }}>
-                        {error && <small className="text-danger">{error}</small>}
-                        </div>
-                    <label className="form-label fw-bold">Confirmar Contraseña</label>
-                    <div className="input-group mb-2">
-                        <input
-                            type={showConfirmPassword ? "text" : "password"}
-                            className="form-control"
-                            value={confirmPassword}
-                            onChange={(e) => validateConfirmPassword(e.target.value)}
-                            placeholder="Confirme su Contraseña"
-                        />
-                        <button
-                            type="button"
-                            className="btn btn-outline-secondary"
-                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        >
-                            <i className={`bi ${showConfirmPassword ? "bi-eye-slash" : "bi-eye"}`}></i>
-                        </button>
-                    </div>
-                    <div style={{ minHeight: "20px" }}>
-                    {confirmError && <small className="text-danger">{confirmError}</small>}
-                    </div>
-                </div>
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      Swal.fire("Correo inválido", "Escribe un correo válido.", "error");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      Swal.fire("Contraseña", "Las contraseñas no coinciden.", "error");
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      const user = userCredential.user;
+
+      // Guardar datos adicionales en Firestore
+      await setDoc(doc(db, 'usuarios', user.uid), {
+        cedula: formData.cedula,
+        nombres: formData.nombres,
+        apellidos: formData.apellidos,
+        fechaNacimiento: formData.fechaNacimiento,
+        sexo: formData.sexo,
+        telefono: formData.telefono,
+        email: formData.email,
+        estado: 'pendiente'  // campo para activar o desactivar luego
+      });
+
+      Swal.fire("¡Registro exitoso!", "Usuario registrado correctamente.", "success").then(() => {
+        window.location.href = "/";
+      });
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        Swal.fire("Error", "Este correo ya está registrado.", "error");
+      } else {
+        console.error(error);
+        Swal.fire("Error", "No se pudo registrar el usuario.", "error");
+      }
+    }
+  };
+
+  return (
+    <div className="d-flex justify-content-center align-items-center min-vh-100 bg-gradient">
+      <div className="form-card">
+        <img src={logo} alt="Logo Brilla" className="logo mb-3 d-block mx-auto" style={{ width: '120px' }} />
+        <h3 className="mb-4 text-center">Registro de Usuario</h3>
+        <form onSubmit={handleSubmit}>
+
+          <div className="mb-3">
+            <label className="form-label">Nombres</label>
+            <input type="text" className="form-control" name="nombres" value={formData.nombres} onChange={handleChange} placeholder="Tus nombres" />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Apellidos</label>
+            <input type="text" className="form-control" name="apellidos" value={formData.apellidos} onChange={handleChange} placeholder="Tus apellidos" />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Cédula</label>
+            <input type="text" className="form-control" name="cedula" value={formData.cedula} onChange={handleChange} placeholder="Tu cédula" />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Fecha de Nacimiento</label>
+            <input type="date" className="form-control" name="fechaNacimiento" value={formData.fechaNacimiento} onChange={handleChange} />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Teléfono</label>
+            <input type="tel" className="form-control" name="telefono" value={formData.telefono} onChange={handleChange} placeholder="Ej: 3001234567" />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Sexo</label>
+            <div className="d-flex gap-3">
+              <div className="form-check">
+                <input className="form-check-input" type="radio" name="sexo" value="Masculino" checked={formData.sexo === 'Masculino'} onChange={handleChange} />
+                <label className="form-check-label">Masculino</label>
+              </div>
+              <div className="form-check">
+                <input className="form-check-input" type="radio" name="sexo" value="Femenino" checked={formData.sexo === 'Femenino'} onChange={handleChange} />
+                <label className="form-check-label">Femenino</label>
+              </div>
             </div>
-            <div className="d-flex flex-column align-items-center mt-3">
-                <Link to="/">
-                    <button className="btn custom-btn w-140 d-flex align-items-center justify-content-center" style={{ width: "150px" }}>Registrar</button>
-                </Link>
-                <Link to="/">
-                    <button className="custom-bttn w-140 d-flex align-items-center justify-content-center" style={{ width: "150px" }}>Cancelar</button>
-                </Link>
-            </div>
-        </div>
+          </div>
 
+          <div className="mb-3">
+            <label className="form-label">Correo Electrónico</label>
+            <input type="email" className="form-control" name="email" value={formData.email} onChange={handleChange} placeholder="tucorreo@ejemplo.com" />
+          </div>
 
+          <div className="mb-3">
+            <label className="form-label">Contraseña</label>
+            <input type="password" className="form-control" name="password" value={formData.password} onChange={handleChange} placeholder="Escribe tu contraseña" />
+          </div>
 
-        </div >
-    )
-};
+          <div className="mb-3">
+            <label className="form-label">Repetir Contraseña</label>
+            <input type="password" className="form-control" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirma tu contraseña" />
+          </div>
 
-export default REGISTER;
+          <div className="d-grid gap-2">
+            <button type="submit" className="btn btn-primary">Registrar</button>
+            <a href="/" className="btn btn-outline-secondary">Volver al inicio</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default RegisterPage;

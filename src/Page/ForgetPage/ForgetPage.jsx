@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
-import './ForgetPage.css';
-import logo from '../../assets/brilla.png';
+import "../ForgetPage/ForgetPage.css"
+import logo from '../../assets/logo inventario.png';
 import { auth } from '../../firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
 

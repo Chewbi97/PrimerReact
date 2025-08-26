@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { auth, googleProvider, db } from "../../firebase";
 import { signInWithEmailAndPassword, fetchSignInMethodsForEmail, linkWithCredential, EmailAuthProvider, signInWithPopup } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import "./LoginPage.css"
-import logo from '../../../src/assets/brilla.png'
+import logo from '../../../src/assets/logo inventario.png'
 
 function LoginPage() {
     const [email, setEmail] = useState('');

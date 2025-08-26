@@ -30,7 +30,7 @@ function App() {
         <Route path="/useeffect" element={<UseEffectPlay />} />
         <Route path="/useref" element={<UseRefPlay />} />
 
-       ¿
+       
       
       </Routes>
       </BrowserRouter>
