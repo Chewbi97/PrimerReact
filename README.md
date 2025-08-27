@@ -58,6 +58,7 @@ npm install bootstrap-icons
 ```bash
 npm install firebase
 npm install react-firebase
+npm install -g firebase-tools
 ```
 **React Icons**
 ```bash
@@ -95,8 +96,9 @@ npm install react-icons
 │   └── robots.txt            # Ícono de la aplicación
 ├── src/
 │   ├── Page                  # Punto de entrada principal
-│        ├── LoginPage.css    # Visuales de la página de Login
-│        ├── LoginPage.jsx    # Página de Login
+│        ├── LoginPage        # Funcionamiento y visual del Login
+│               ├── LoginPage.css    # Página de Login
+│               ├── LoginPage.jsx    # Página de Login
 │   ├── App.css               # Estilo global de la app
 │   ├── App.js                # Funcionamiento del Login
 │   ├── App.test.js           # Escenario de pruebas rapidas
@@ -119,13 +121,13 @@ npm install react-icons
 |-----|-------------|-------------------------------------------------------|
 | 1   | 2025-08-12  | Creación del proyecto con CRA                         |
 | 2   | 2025-08-15  | Creación de la estructura del README y PLAYGROUND     |
-| 3   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
-| 4   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
-| 5   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
-| 6   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
-| 7   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
-| 8   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
-| 9   | 2025-08-15  | Instalación y configuración de Bootstrap y SweetAlert2 |
+| 3   | 2025-08-19  | Construcción de los hooks a usar en la app |
+| 4   | 2025-08-20  | Se realizan ajustes de la navegación en la app con React Route Dom |
+| 5   | 2025-08-21  | Se realizan ajustes de bootstrap y css para los modulos trabajados |
+| 6   | 2025-08-22  | Se hace la implementación de alertas a los diferentes modulos con sweetAlert |
+| 7   | 2025-08-25  | Se hace la creacion de usuario en Firebase y se relaciona al proyecto con el token |
+| 8   | 2025-08-26  | Se hacen ajustes en Firebase y se trabaja en el funcionamiento del Dashboard |
+| 9   | 2025-08-28  | Instalación y configuración de Bootstrap y SweetAlert2 |
 
 > **Nota:** Ir actualizando la tabla con cada cambio o entregable.
 
