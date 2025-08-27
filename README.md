@@ -46,6 +46,23 @@ npm install bootstrap
 ```bash
 npm install SweetAlert2
 ```
+**React-Router**
+```bash
+npm install react-router-dom
+```
+**Bootstrap Icons**
+```bash
+npm install bootstrap-icons
+```
+**FireBase**
+```bash
+npm install firebase
+npm install react-firebase
+```
+**React Icons**
+```bash
+npm install react-icons
+```
 
 ---
 
@@ -60,6 +77,7 @@ npm install SweetAlert2
 | **React**              | ![React](https://img.icons8.com/color/48/react-native.png)            | Biblioteca de JavaScript para construir interfaces de usuario basadas en componentes.        |
 | **Create React App**   | <img src="https://th.bing.com/th/id/R.2bee11a830bacc5ae9006df56b20c33a?rik=nXUBy4boCTrW8w&pid=ImgRaw&r=0" width="40"/>     | Herramienta oficial para crear proyectos React con configuración inicial lista para usar.    |
 | **SweetAlert2**        | <img src="https://tse1.explicit.bing.net/th/id/OIP.sbHWbfQY-VMmVDzT71z8vgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" width="40"/>   | Librería JS para mostrar alertas modernas, elegantes y perso nalizadas. |
+| **FireBase**        | <img src="https://firebase.google.com/static/images/brand-guidelines/logo-vertical.png?hl=es-419" width="40"/>   | Servicio de DataBase, autenticación y demás herramientas para soporte de datos. |
 
 ---
 

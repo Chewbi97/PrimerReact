@@ -3,14 +3,18 @@ import { BrowserRouter,Routes,Route } from "react-router-dom"
 import LoginPage from "./Page/LoginPage/LoginPage"
 import RegisterPage from "./Page/RegisterPage/RegisterPage"
 import ForgetPage from "./Page/ForgetPage/ForgetPage"
-import ResetPasswordPage from "./Page/ResetPasswordPage/ResetPasswordPage"
+import NotFoundPage from "./Page/Components/NotFoundPages"
 
 //Import para HOOKS
-import HooksGral from "./Playground/HooksGral"
-import HookUseState from "./Playground/HookUseState" 
 import UseEffectPlay from "./Playground/UseEffectPlay"
 import UseStatePlay from "./Playground/UseStatePlay"
 import UseRefPlay from "./Playground/UseRefPlay"
+
+//Import rutas de autenticación Firebase//
+import ProtectedRoute from "./Page/Components/ProtectedRoute"
+import DashboardPage from "./Page/DashboradPage/DashboardPage"
+import ResetPasswordPage from "./Page/ResetPasswordPage/ResetPasswordPage"
+import AuxiliaresPage from "./Page/AuxiliarPage/AuxiliarPage"
 
 function App() {
   
@@ -22,10 +26,10 @@ function App() {
         <Route path="/ForgetPage" element={<ForgetPage/>} />
         <Route path="/RegisterPage" element={<RegisterPage/>} />
         <Route path="/ResetPasswordPage" element={<ResetPasswordPage/>} />
+        <Route path="/dashboard" element={<DashboardPage/>} />
+
 
         {/* Rutas para Hooks*/}
-        <Route path="/HooksGral" element={<HooksGral/>} />
-        <Route path="/usestate" element={<HookUseState/>} />
         <Route path="/usestate" element={<UseStatePlay />} />
         <Route path="/useeffect" element={<UseEffectPlay />} />
         <Route path="/useref" element={<UseRefPlay />} />

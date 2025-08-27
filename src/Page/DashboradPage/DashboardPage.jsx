@@ -104,14 +104,14 @@ function DashboardPage() {
       {/* CONTENIDO PRINCIPAL */}
       <main className="main-content">
         <div>
-          <img src={logo} alt="Brilla Logo" className="main-logo" />
-          <h1 className="welcome-title">Welcome to Brilla System</h1>
+          <img src={logo} alt="logo inventario" className="main-logo" />
+          <h1 className="welcome-title">Welcome to Inventory.App</h1>
           <p className="welcome-text">
-            Manage your clients, services, and more efficiently!
+            Manage your inventories, movements, and more efficiently!
           </p>
 
           <p className="welcome-text">
-            <strong>Nombre:</strong> {user?.displayName || "Sin nombre"}
+            <strong>Name:</strong> {user?.displayName || "Sin nombre"}
           </p>
           <p className="welcome-text">
             <strong>Email:</strong> {user?.email || "Sin correo"}
@@ -128,7 +128,7 @@ function DashboardPage() {
       {/* FOOTER */}
       <footer className="footer mt-auto">
         <div className="container">
-          <small>© 2025 Brilla. All rights reserved.</small>
+          <small>© 2025 Inventory.App. All rights reserved.</small>
         </div>
       </footer>
     </>

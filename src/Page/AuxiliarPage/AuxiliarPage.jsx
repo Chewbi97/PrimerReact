@@ -6,7 +6,7 @@ import { FaEdit, FaTrash, FaUserCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { auth, db } from '../../firebase';
 import { signOut } from 'firebase/auth';
-import './AuxiliaresPage.css';
+import './AuxiliarPage.css'
 import logo from '../../assets/logo inventario.png';
 
 function AuxiliaresPage() {
