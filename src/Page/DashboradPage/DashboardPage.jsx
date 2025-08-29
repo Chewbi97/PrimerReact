@@ -82,7 +82,7 @@ function DashboardPage() {
                   Auxiliares
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link onClick={() => navigate('/servicios')}>Servicios</Nav.Link>
+              <Nav.Link onClick={() => navigate('/ProtectPage')}>Seguridad</Nav.Link>
               <Nav.Link onClick={() => navigate('/cronograma')}>Cronograma</Nav.Link>
               <Nav.Link onClick={() => navigate('/opcion1')}>Opción 1</Nav.Link>
               <Nav.Link onClick={() => navigate('/opcion2')}>Opción 2</Nav.Link>

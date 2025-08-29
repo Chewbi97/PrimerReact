@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { auth, googleProvider, db } from "../../firebase";
-import { signInWithEmailAndPassword, fetchSignInMethodsForEmail, linkWithCredential, EmailAuthProvider, signInWithPopup } from "firebase/auth";
+import { signInWithEmailAndPassword, fetchSignInMethodsForEmail, linkWithCredential, EmailAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import "./LoginPage.css"
 import logo from '../../../src/assets/logo inventario.png'
@@ -11,6 +11,8 @@ import logo from '../../../src/assets/logo inventario.png'
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
 
     // LOGIN CON EMAIL/PASSWORD
     const handleSubmit = async (e) => {
@@ -59,22 +61,26 @@ function LoginPage() {
             const googleResult = await signInWithPopup(auth, googleProvider);
             const user = googleResult.user;
 
-            // Verificar si ya existía ese correo con otro método
-            const signInMethods = await fetchSignInMethodsForEmail(auth, user.email);
+            // 🔎 Verificar si el usuario existe en Firestore por UID
+            const userDocRef = doc(db, "usuarios", user.uid);
+            const userSnap = await getDoc(userDocRef);
 
-            if (signInMethods.includes('password')) {
-                // Si existe por password hay que vincularlo
-                const password = await solicitarPassword();
-                if (!password) {
-                    Swal.fire("Cancelado", "Operación cancelada.", "info");
-                    return;
-                }
-
-                // Crear credential de email/password
-                const credential = EmailAuthProvider.credential(user.email, password);
-                await linkWithCredential(user, credential);
+            if (!userSnap.exists()) {
+                // Usuario NO registrado → cerrar sesión y mostrar mensaje
+                await signOut(auth);
+                Swal.fire("Acceso denegado", "Este correo no está registrado. Por favor regístrate primero.", "error");
+                return;
             }
 
+            //  Usuario existe → validar estado (si tienes esa lógica)
+            const data = userSnap.data();
+            if (data.estado === "Inactivo") {
+                await signOut(auth);
+                Swal.fire("Acceso denegado", "Tu cuenta está inactiva. Contacta al administrador.", "error");
+                return;
+            }
+
+            // ✅ Todo bien → continuar
             Swal.fire({
                 title: "¡Bienvenido!",
                 text: `Sesión iniciada con Google: ${user.email}`,
@@ -90,6 +96,7 @@ function LoginPage() {
             Swal.fire("Error", "No se pudo iniciar sesión con Google.", "error");
         }
     };
+
 
     const solicitarPassword = async () => {
         const result = await Swal.fire({
@@ -134,15 +141,24 @@ function LoginPage() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">Contraseña</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="password"
-                            placeholder="Contraseña"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
+                        <div className="input-group">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                className="form-control"
+                                id="password"
+                                placeholder="Contraseña"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                            <span
+                                className="input-group-text "
+                                style={{ cursor: "pointer", color: "black" }}
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                <i className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`} style={{color: "black"}}></i>
+                            </span>
+                        </div>
                     </div>
                     <div className="d-grid">
                         <button type="submit" className="btn btn-primary">Entrar</button>

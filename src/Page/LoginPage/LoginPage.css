@@ -80,3 +80,8 @@ h3 {
 .form-card a:hover {
   text-decoration: underline !important;
 }
+
+
+div.input-group button.toggle-password i.bi {
+  color: #212529 !important;  
+}

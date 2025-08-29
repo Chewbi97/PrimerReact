@@ -16,6 +16,10 @@ import DashboardPage from "./Page/DashboradPage/DashboardPage"
 import ResetPasswordPage from "./Page/ResetPasswordPage/ResetPasswordPage"
 import AuxiliaresPage from "./Page/AuxiliarPage/AuxiliarPage"
 
+//Imports protocolos de seguridad//
+import ProtectPage from "./Page/ProtectPage/ProtectPage"
+
+
 function App() {
   
   return (
@@ -27,7 +31,12 @@ function App() {
         <Route path="/RegisterPage" element={<RegisterPage/>} />
         <Route path="/ResetPasswordPage" element={<ResetPasswordPage/>} />
         <Route path="/dashboard" element={<DashboardPage/>} />
+        
+        {/* Ruta para páginas no encontradas */}
+        <Route path="*" element={<NotFoundPage />} />
 
+        {/* Ruta protocolo de seguridad */}
+        <Route path="/ProtectPage" element={<ProtectPage />} />
 
         {/* Rutas para Hooks*/}
         <Route path="/usestate" element={<UseStatePlay />} />

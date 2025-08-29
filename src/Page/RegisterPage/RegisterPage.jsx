@@ -20,6 +20,9 @@ function RegisterPage() {
     confirmPassword: ''
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -127,14 +130,30 @@ function RegisterPage() {
             <input type="email" className="form-control" name="email" value={formData.email} onChange={handleChange} placeholder="tucorreo@ejemplo.com" />
           </div>
 
-          <div className="mb-3">
+          <div className="mb-3 position-relative">
             <label className="form-label">Contraseña</label>
-            <input type="password" className="form-control" name="password" value={formData.password} onChange={handleChange} placeholder="Escribe tu contraseña" />
+            <input
+              type={showPassword ? "text" : "password"}
+              className="form-control" name="password" value={formData.password} onChange={handleChange} placeholder="Escribe tu contraseña"
+            />
+            <i
+              className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`}
+              style={{position: "absolute",right: "15px",top: "65%",transform: "translateY(-50%)",cursor: "pointer",color: "#212529",}}
+              onClick={() => setShowPassword(!showPassword)}
+            ></i>
           </div>
 
-          <div className="mb-3">
+          <div className="mb-3 position-relative">
             <label className="form-label">Repetir Contraseña</label>
-            <input type="password" className="form-control" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirma tu contraseña" />
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              className="form-control" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirma tu contraseña"
+            />
+            <i
+              className={`bi ${showConfirmPassword ? "bi-eye-slash" : "bi-eye"}`}
+              style={{position: "absolute",right: "15px",top: "65%",transform: "translateY(-50%)",cursor: "pointer",color: "#212529",}}
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            ></i>
           </div>
 
           <div className="d-grid gap-2">
