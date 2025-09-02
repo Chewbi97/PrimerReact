@@ -7,6 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Swal from 'sweetalert2';
 import logo from '../../../../assets/logo inventario.png';
 import userDefault from '../../../../assets/user.png';
+import "../DashboardNavbar/DashboardNavbar.css"
 
 
 function DashboardNavbar() {
@@ -57,20 +58,14 @@ function DashboardNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <NavDropdown title="Personas" id="basic-nav-dropdown">
-              <NavDropdown.Item onClick={() => navigate('/clientes')}>Clientes</NavDropdown.Item>
-              <NavDropdown.Item onClick={() => navigate('/auxiliares')}>Auxiliares</NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link onClick={() => navigate('/usuario')}>usuario</Nav.Link>
+            <Nav.Link onClick={() => navigate('/usuario')}>Usuario</Nav.Link>
             <Nav.Link onClick={() => navigate('/cronograma')}>Cronograma</Nav.Link>
             <Nav.Link onClick={() => navigate('/opcion1')}>Opción 1</Nav.Link>
             <Nav.Link onClick={() => navigate('/opcion2')}>Opción 2</Nav.Link>
-            <Nav.Item className="logout-container" onClick={handleLogout}>
-              <Nav.Link className="logout-link d-flex align-items-center gap-2">
-                <FaSignOutAlt /> Cerrar Sesión
-                <img src={userPhoto} alt="Foto de usuario" className="user-photo-nav" />
-              </Nav.Link>
-            </Nav.Item>
+            <NavDropdown title="Usuario" id="basic-nav-dropdown">
+              <NavDropdown.Item onClick={() => navigate('/ProfilePage')}>Perfil</NavDropdown.Item>
+              <NavDropdown.Item onClick={handleLogout}>Cerrar Sesión</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>

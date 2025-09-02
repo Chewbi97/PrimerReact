@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { auth, googleProvider, db } from "../../firebase";
-import { signInWithEmailAndPassword, fetchSignInMethodsForEmail, linkWithCredential, EmailAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { GoogleAuthProvider, signInWithEmailAndPassword, fetchSignInMethodsForEmail, linkWithCredential, EmailAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import "./LoginPage.css"
 import logo from '../../../src/assets/logo inventario.png'
 
@@ -58,26 +58,38 @@ function LoginPage() {
     // LOGIN CON GOOGLE
     const handleGoogleLogin = async () => {
         try {
-            const googleResult = await signInWithPopup(auth, googleProvider);
+            // 👇 Forzar que siempre muestre el selector de cuentas
+            const provider = new GoogleAuthProvider();
+            provider.setCustomParameters({
+                prompt: 'select_account'
+            });
+
+            const googleResult = await signInWithPopup(auth, provider);
             const user = googleResult.user;
 
-            // 🔎 Verificar si el usuario existe en Firestore por UID
+            // Referencia al documento en Firestore
             const userDocRef = doc(db, "usuarios", user.uid);
             const userSnap = await getDoc(userDocRef);
 
             if (!userSnap.exists()) {
-                // Usuario NO registrado → cerrar sesión y mostrar mensaje
-                await signOut(auth);
-                Swal.fire("Acceso denegado", "Este correo no está registrado. Por favor regístrate primero.", "error");
-                return;
-            }
-
-            //  Usuario existe → validar estado (si tienes esa lógica)
-            const data = userSnap.data();
-            if (data.estado === "Inactivo") {
-                await signOut(auth);
-                Swal.fire("Acceso denegado", "Tu cuenta está inactiva. Contacta al administrador.", "error");
-                return;
+                // 🚀 Crear el documento automáticamente si no existe
+                await setDoc(userDocRef, {
+                    uid: user.uid,
+                    nombre: user.displayName || "Usuario Google",
+                    correo: user.email,
+                    foto: user.photoURL || "",
+                    rol: "Usuario",
+                    estado: "Activo",
+                    fechaRegistro: new Date(),
+                });
+            } else {
+                // Validar si está inactivo
+                const data = userSnap.data();
+                if (data.estado === "Inactivo") {
+                    await signOut(auth);
+                    Swal.fire("Acceso denegado", "Tu cuenta está inactiva. Contacta al administrador.", "error");
+                    return;
+                }
             }
 
             // ✅ Todo bien → continuar
@@ -96,7 +108,6 @@ function LoginPage() {
             Swal.fire("Error", "No se pudo iniciar sesión con Google.", "error");
         }
     };
-
 
     const solicitarPassword = async () => {
         const result = await Swal.fire({
@@ -156,7 +167,7 @@ function LoginPage() {
                                 style={{ cursor: "pointer", color: "black" }}
                                 onClick={() => setShowPassword(!showPassword)}
                             >
-                                <i className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`} style={{color: "black"}}></i>
+                                <i className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`} style={{ color: "black" }}></i>
                             </span>
                         </div>
                     </div>

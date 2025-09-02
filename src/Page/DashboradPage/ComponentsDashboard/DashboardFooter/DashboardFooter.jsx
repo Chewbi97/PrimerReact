@@ -1,4 +1,4 @@
-
+import "../DashboardFooter/DashboardFooter.css"
 
 function DashboardFooter() {
   return (

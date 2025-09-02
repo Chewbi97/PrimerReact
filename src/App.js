@@ -15,6 +15,7 @@ import ProtectedRoute from "./Page/Components/ProtectedRoute"
 import DashboardPage from "./Page/DashboradPage/DashboardPage"
 import ResetPasswordPage from "./Page/ResetPasswordPage/ResetPasswordPage"
 import AuxiliaresPage from "./Page/AuxiliarPage/AuxiliarPage"
+import ProfilePage from "./Page/DashboradPage/ComponentsDashboard/DashboardNavbar/NavDropdown/ProfilePage"
 
 
 
@@ -40,6 +41,7 @@ function App() {
         {/* Rutas protegidas */}
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>}/>
         <Route path="/AuxiliaresPage" element={<ProtectedRoute><AuxiliaresPage /></ProtectedRoute>}/>
+        <Route path="/ProfilePage" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>}/>
 
         {/* Rutas para Hooks*/}
         <Route path="/usestate" element={<UseStatePlay />} />

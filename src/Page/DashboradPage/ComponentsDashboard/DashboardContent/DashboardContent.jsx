@@ -2,6 +2,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../../../firebase';
 import logo from '../../../../assets/logo inventario.png';
 import userDefault from '../../../../assets/user.png';
+import "../DashboardContent/DashboardContent.css"
 
 
 function DashboardContent() {
