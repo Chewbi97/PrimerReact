@@ -65,3 +65,22 @@
     background-color: #6b2c96;
     color: #000;
 }
+
+.dashboard-navbar .nav-item .nav-link.dropdown-toggle {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+    min-width: 150px; 
+    justify-content: flex-end; 
+    color: #fff; 
+}
+
+.dashboard-navbar .nav-item .nav-link.dropdown-toggle::after {
+    margin-left: 5px; 
+}
+
+.navbar-dark .navbar-nav {
+    display: flex;
+    align-items: center; /* ¡Esta es la clave para la alineación! */
+    gap: 1.5rem;
+}

@@ -12,10 +12,12 @@ import UseRefPlay from "./Playground/UseRefPlay"
 
 //Import rutas de autenticación Firebase//
 import ProtectedRoute from "./Page/Components/ProtectedRoute"
-import DashboardPage from "./Page/DashboradPage/DashboardPage"
+import DashboardPage from "./Page/DashboradPage/ComponentsDashboard/DashboardPage/DashboardPage"
 import ResetPasswordPage from "./Page/ResetPasswordPage/ResetPasswordPage"
 import AuxiliaresPage from "./Page/AuxiliarPage/AuxiliarPage"
 import ProfilePage from "./Page/DashboradPage/ComponentsDashboard/DashboardNavbar/NavDropdown/ProfilePage"
+import DashboardContent from "./Page/DashboradPage/ComponentsDashboard/DashboardContent/DashboardContent"
+import DashboardLayout from "./Page/DashboradPage/DashboardLayout"
 
 
 
@@ -39,10 +41,11 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
 
         {/* Rutas protegidas */}
-        <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>}/>
-        <Route path="/AuxiliaresPage" element={<ProtectedRoute><AuxiliaresPage /></ProtectedRoute>}/>
-        <Route path="/ProfilePage" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>}/>
-
+        <Route element={<DashboardLayout />}>
+            <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>}/>
+            <Route path="/AuxiliaresPage" element={<ProtectedRoute><AuxiliaresPage /></ProtectedRoute>}/>
+            <Route path="/ProfilePage" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>}/>
+        </Route>
         {/* Rutas para Hooks*/}
         <Route path="/usestate" element={<UseStatePlay />} />
         <Route path="/useeffect" element={<UseEffectPlay />} />

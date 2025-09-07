@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { db } from '../../firebase';
 import { doc, setDoc } from 'firebase/firestore';
@@ -28,6 +28,13 @@ function RegisterPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const capitalizeName = (name) => {
+    if (!name) return '';
+    return name.split(' ').map(word => {
+      if (word.length === 0) return '';
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    }).join(' ');
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -53,7 +60,11 @@ function RegisterPage() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
       const user = userCredential.user;
+      const capitalizedFullName = capitalizeName(formData.nombres);
 
+      await updateProfile(user, {
+        displayName: formData.nombres
+      });
       // Guardar datos adicionales en Firestore
       await setDoc(doc(db, 'usuarios', user.uid), {
         cedula: formData.cedula,
@@ -138,7 +149,7 @@ function RegisterPage() {
             />
             <i
               className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`}
-              style={{position: "absolute",right: "15px",top: "65%",transform: "translateY(-50%)",cursor: "pointer",color: "#212529",}}
+              style={{ position: "absolute", right: "15px", top: "65%", transform: "translateY(-50%)", cursor: "pointer", color: "#212529", }}
               onClick={() => setShowPassword(!showPassword)}
             ></i>
           </div>
@@ -151,7 +162,7 @@ function RegisterPage() {
             />
             <i
               className={`bi ${showConfirmPassword ? "bi-eye-slash" : "bi-eye"}`}
-              style={{position: "absolute",right: "15px",top: "65%",transform: "translateY(-50%)",cursor: "pointer",color: "#212529",}}
+              style={{ position: "absolute", right: "15px", top: "65%", transform: "translateY(-50%)", cursor: "pointer", color: "#212529", }}
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             ></i>
           </div>
