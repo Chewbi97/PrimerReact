@@ -97,7 +97,7 @@ function DashboardNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link onClick={() => navigate('/usuario')}>Usuario</Nav.Link>
+            <Nav.Link onClick={() => navigate('/UsersList')}>Usuarios</Nav.Link>
             <Nav.Link onClick={() => navigate('/cronograma')}>Cronograma</Nav.Link>
             <Nav.Link onClick={() => navigate('/opcion1')}>Opción 1</Nav.Link>
             <Nav.Link onClick={() => navigate('/opcion2')}>Opción 2</Nav.Link>

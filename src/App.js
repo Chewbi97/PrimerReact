@@ -18,6 +18,7 @@ import AuxiliaresPage from "./Page/AuxiliarPage/AuxiliarPage"
 import ProfilePage from "./Page/DashboradPage/ComponentsDashboard/DashboardNavbar/NavDropdown/ProfilePage"
 import DashboardContent from "./Page/DashboradPage/ComponentsDashboard/DashboardContent/DashboardContent"
 import DashboardLayout from "./Page/DashboradPage/DashboardLayout"
+import UsersList from "./Page/DashboradPage/ComponentsDashboard/DashboardUsersList/DashboardUserList"
 
 
 
@@ -45,6 +46,7 @@ function App() {
             <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>}/>
             <Route path="/AuxiliaresPage" element={<ProtectedRoute><AuxiliaresPage /></ProtectedRoute>}/>
             <Route path="/ProfilePage" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>}/>
+            <Route path="/UsersList" element={<ProtectedRoute><UsersList/></ProtectedRoute>}/>
         </Route>
         {/* Rutas para Hooks*/}
         <Route path="/usestate" element={<UseStatePlay />} />
