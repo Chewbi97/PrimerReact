@@ -1,4 +1,5 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 import DashboardNavbar from "./ComponentsDashboard/DashboardNavbar/DashboardNavbar"
 import DashboardFooter from "./ComponentsDashboard/DashboardFooter/DashboardFooter"
 import { Outlet } from "react-router-dom";

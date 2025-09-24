@@ -1,0 +1,55 @@
+/*Estado del usuario*/
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    display: inline-block;
+}
+
+.status-badge.active {
+    background-color: #28a745; /* Verde */
+}
+
+.status-badge.pending {
+    background-color: #ffc107; /* Amarillo */
+    color: #212529; /* Color de texto oscuro para el contraste */
+}
+
+.status-badge.disabled {
+    background-color: #dc3545; /* Rojo */
+}
+
+/*Rol del usuario*/
+.role-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    display: inline-block;
+}
+
+.role-badge.admin {
+    background-color: #007bff; /* Azul, un color común para administradores */
+}
+
+.role-badge.user {
+    background-color: #6c757d; /* Gris */
+}
+
+/*Tabla de usuarios*/
+/* Esto forzará la tabla a usar el espacio disponible */
+.table-responsive {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-responsive table {
+    flex: 1;
+}

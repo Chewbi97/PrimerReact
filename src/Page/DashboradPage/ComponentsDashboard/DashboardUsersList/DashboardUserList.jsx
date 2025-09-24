@@ -7,6 +7,7 @@ import { FaEdit, FaTrash, FaUserCircle } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { auth, db } from "../../../../firebase";
 import { signOut } from "../../../../firebase";
+import "../DashboardUsersList/DashboardUserList.css"
 import logo from '../../../../assets/logo inventario.png'
 
 function UsersList() {
@@ -82,12 +83,20 @@ function UsersList() {
 
     const handleModalChange = (e) => {
         const { name, value } = e.target;
+        let newValue = value;
+        if (name === 'telefono' && !/^\d*$/.test(value)) {
+            return; // Detiene la función si el valor no es un número
+        }
+        if (name === 'cedula' && !/^\d*$/.test(value)) {
+            return; // Detiene la función si el valor no es un número
+        }
         setSelectedAux({
             ...selectedAux,
             [name]: value
         });
     };
 
+    //Edad del usuario//
     const calculateAge = (birthDate) => {
         if (!birthDate) return '-'; // Maneja los casos en que no hay fecha de nacimiento
 
@@ -105,13 +114,62 @@ function UsersList() {
         return age;
     };
 
+    //Estado del usuario//
+    const StatusBadge = ({ estado }) => {
+        let statusClass = 'pending';
+        let statusText = 'Pendiente';
+
+        if (estado === 'Activo') {
+            statusClass = 'active';
+            statusText = 'Activo';
+        } else if (estado === 'Inactivo') {
+            statusClass = 'disabled';
+            statusText = 'Inactivo';
+        }
+
+        return (
+            <span className={`status-badge ${statusClass}`}>
+                {statusText}
+            </span>
+        );
+    };
+
+    //Roles//
+    const RoleBadge = ({ role }) => {
+        let roleClass = 'user';
+        let roleText = 'Usuario';
+
+        if (role === 'administrador') {
+            roleClass = 'admin';
+            roleText = 'Administrador';
+        }
+
+        return (
+            <span className={`role-badge ${roleClass}`}>
+                {roleText}
+            </span>
+        );
+    };
+
+    const normalizeName = (text) => {
+        if (!text) return '';
+        const words = text.split(' ');
+        const normalized = words.map(word => {
+            if (word.length > 0) {
+                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+            }
+            return '';
+        }).join(' ');
+        return normalized;
+    };
+
     return (
 
         <>
             <main className="main-content">
-                <Container className="mt-4">
+                <Container fluidclassName="mt-4">
                     <h2 className="page-title text-center mb-4">
-                        AUXILIARES DE SERVICIOS REGISTRADOS EN BRILLA
+                        Usuarios
                     </h2>
                     <div className="table-container">
                         <Table striped bordered hover responsive className="tabla-auxiliares">
@@ -126,21 +184,23 @@ function UsersList() {
                                     <th>Edad</th>
                                     <th>Sexo</th>
                                     <th>Estado</th>
+                                    <th>Rol</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {auxiliares.map(aux => (
                                     <tr key={aux.id}>
-                                        <td>{aux.nombres}</td>
-                                        <td>{aux.apellidos}</td>
+                                        <td>{normalizeName(aux.nombres)}</td>
+                                        <td>{normalizeName(aux.apellidos)}</td>
                                         <td>{aux.cedula}</td>
                                         <td>{aux.telefono}</td>
                                         <td>{aux.email}</td>
                                         <td>{aux.fechaNacimiento || '-'}</td>
                                         <td>{calculateAge(aux.fechaNacimiento) || '-'}</td>
                                         <td>{aux.sexo || '-'}</td>
-                                        <td>{aux.estado || 'Pendiente'}</td>
+                                        <td><StatusBadge estado={aux.estado} /></td>
+                                        <td><RoleBadge role={aux.rol} /></td>
                                         <td>
                                             <Button
                                                 variant="warning"
@@ -199,6 +259,8 @@ function UsersList() {
                                     name="cedula"
                                     value={selectedAux.cedula}
                                     onChange={handleModalChange}
+                                    maxLength={10}
+                                    minLength={10}
                                 />
                             </Form.Group>
                             <Form.Group className="mb-2">
@@ -208,6 +270,8 @@ function UsersList() {
                                     name="telefono"
                                     value={selectedAux.telefono}
                                     onChange={handleModalChange}
+                                    maxLength={10}
+                                    minLength={10}
                                 />
                             </Form.Group>
                             <Form.Group className="mb-2">

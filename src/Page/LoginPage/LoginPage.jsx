@@ -73,13 +73,16 @@ function LoginPage() {
 
             if (!userSnap.exists()) {
                 // 🚀 Crear el documento automáticamente si no existe
+                // Divide el nombre completo de Google en nombres y apellidos
+                const nameParts = user.displayName ? user.displayName.split(' ') : ['', ''];
                 await setDoc(userDocRef, {
                     uid: user.uid,
-                    nombre: user.displayName || "Usuario Google",
-                    correo: user.email,
+                    nombres: nameParts[0] || "Usuario", 
+                    apellidos: nameParts.slice(1).join(' ') || "",
+                    email: user.email,
                     foto: user.photoURL || "",
                     rol: "Usuario",
-                    estado: "Activo",
+                    estado: "Pendiente",
                     fechaRegistro: new Date(),
                 });
             } else {
