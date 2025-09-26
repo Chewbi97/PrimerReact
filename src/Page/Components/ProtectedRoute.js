@@ -8,15 +8,13 @@ import { doc, getDoc } from "firebase/firestore";
 
 function ProtectedRoute({ children, requiredRole }) {
   const [user, firebaseLoading] = useAuthState(auth);
-  const [hasRequiredRole, setHasRequiredRole, setHaspermission, haspermission] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // Nuevo estado de carga unificado
+  const [hasRequiredRole, setHasRequiredRole, setHaspermission] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); 
   const navigate = useNavigate();
-
-  console.log("tengo role",requiredRole)
-
 
   useEffect(() => {
     // Si la autenticación está cargando, no hacer nada.
+
     if (firebaseLoading) {
       return;
     }
@@ -24,7 +22,21 @@ function ProtectedRoute({ children, requiredRole }) {
     const checkAccess = async () => {
       console.log("checking")
       // 1. Verificar si el usuario está autenticado
+      // 1. Verificar si el usuario está autenticado
       if (!user) {
+        
+        // 🚨 MODIFICACIÓN CLAVE: Verificamos si es un logout intencional
+        const isLoggingOut = sessionStorage.getItem('isLoggingOut');
+
+        if (isLoggingOut === 'true') {
+            // Es un logout: limpiamos la bandera y redirigimos sin alerta
+            sessionStorage.removeItem('isLoggingOut'); 
+            navigate("/", { replace: true });
+            setIsLoading(false);
+            return;
+        }
+
+        // Si la bandera NO está puesta, es un intento de acceso directo (¡Mostramos la alerta!)
         Swal.fire({
           icon: "warning",
           title: "Acceso restringido",
@@ -33,7 +45,7 @@ function ProtectedRoute({ children, requiredRole }) {
         }).then(() => {
           navigate("/", { replace: true });
         });
-        //setIsLoading(false); // Detenemos la carga
+        setIsLoading(false); 
         return;
       }
 
@@ -41,46 +53,40 @@ function ProtectedRoute({ children, requiredRole }) {
       if (!requiredRole) {
         setHasRequiredRole(true);
         console.log("no tengonrole")
-
-        //setIsLoading(false); // Detenemos la carga
-        //return;
+        setIsLoading(false); // Detenemos la carga //
+        return;
       }
-
       // 3. Si requiere un rol, obtener el documento del usuario
       const userDocRef = doc(db, 'usuarios', user.uid);
-      const userDoc = getDoc(userDocRef).then((userDoc)=> {
+      const userDoc = getDoc(userDocRef).then((userDoc) => {
         console.log("termina el firebase")
-// Verificar si el rol coincide
-      if (userDoc.exists() && userDoc.data().rol === requiredRole) {
-        setHasRequiredRole(true);
-        //setHaspermission(true);
-      } else {
-        // El usuario no tiene el rol, mostramos la alerta y redirigimos
-        Swal.fire({
-          icon: "error",
-          title: "Acceso denegado",
-          text: "No tienes permisos para acceder a esta página.",
-          confirmButtonText: "Ok",
-        }).then(() => {
-          navigate("/dashboard", { replace: true });
-        });
-      }
-
-      setIsLoading(false); // Detenemos la carga
+        // Verificar si el rol coincide
+        if (userDoc.exists() && userDoc.data().rol === requiredRole) {
+          setHasRequiredRole(true);
+          setHaspermission(true);
+        } else {
+          // El usuario no tiene el rol, mostramos la alerta y redirigimos
+          Swal.fire({
+            icon: "error",
+            title: "Acceso denegado",
+            text: "No tienes permisos para acceder a esta página.",
+            confirmButtonText: "Ok",
+          }).then(() => {
+            navigate("/dashboard", { replace: true });
+          });
+        }
+        setIsLoading(false); // Detenemos la carga
       })
     };
-
     checkAccess();
   }, [user, firebaseLoading, navigate, requiredRole]);
-
   // Si está cargando, siempre mostramos el spinner
   if (isLoading) {
     return <Spinner />;
   }
-
-  // Si el proceso de carga ha terminado y tiene el rol, renderizamos los componentes 
+  // Si el proceso de carga ha terminado y tiene el rol, renderizamos los componentes
   //return children ? children : <Spinner/>;
-  return hasRequiredRole ? children : <Spinner/>;
+  return hasRequiredRole ? children : <Spinner />;
 }
 
 export default ProtectedRoute;

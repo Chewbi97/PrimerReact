@@ -54,6 +54,7 @@ function DashboardNavbar() {
     };
     fetchUserName();
   }, [user]); // Este useEffect se ejecuta cada vez que el estado del usuario cambia
+  
   const handleLogout = async () => {
     const result = await Swal.fire({
       title: '¿Estás seguro?',
@@ -66,8 +67,13 @@ function DashboardNavbar() {
 
     if (result.isConfirmed) {
       try {
+        // Mantenemos la bandera *ANTES* del signOut, por si acaso
+        sessionStorage.setItem("isLoggingOut", "true"); // <-- Renombré a 'isLoggingOut' para claridad
+
         await signOut(auth);
-        sessionStorage.setItem("logout", "true");
+        
+        // Eliminamos el sessionStorage.setItem que estaba aquí, ya lo pusimos arriba.
+        
         Swal.fire({
           icon: 'success',
           title: 'Sesión cerrada',
@@ -82,12 +88,11 @@ function DashboardNavbar() {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Hubo un problema al cerrar sesión.',
+          title: 'Hubo un problema al cerrar sesión.',
         });
       }
     }
   };
-
   return (
     <Navbar expand="lg" variant="dark" className="dashboard-navbar">
       <Container>
@@ -97,7 +102,11 @@ function DashboardNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link onClick={() => navigate('/UsersList')}>Usuarios</Nav.Link>
+{            /*<Nav.Link onClick={() => navigate('/UsersList')}>Usuarios</Nav.Link>*/
+
+}
+            {/*<a href='/UsersList'>Usuarios</a>*/}
+            <Nav.Link onClick={() => window.location.href = '/UsersList'}>Usuarios</Nav.Link>
             <Nav.Link onClick={() => navigate('/cronograma')}>Cronograma</Nav.Link>
             <Nav.Link onClick={() => navigate('/opcion1')}>Opción 1</Nav.Link>
             <Nav.Link onClick={() => navigate('/opcion2')}>Opción 2</Nav.Link>
