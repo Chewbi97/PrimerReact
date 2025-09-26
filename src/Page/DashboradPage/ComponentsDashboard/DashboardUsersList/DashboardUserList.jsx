@@ -58,6 +58,17 @@ function UsersList() {
     const handleSaveChanges = async () => {
         try {
             const auxRef = doc(db, 'usuarios', selectedAux.id);
+            const age = calculateAge(selectedAux.fechaNacimiento);
+
+            if (age < 18) {
+                Swal.fire({
+                    title: 'Error de validación',
+                    text: 'El usuario debe ser mayor de 18 años.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+                return; // Detiene la función y no guarda los cambios
+            }
             await updateDoc(auxRef, {
                 nombres: selectedAux.nombres,
                 apellidos: selectedAux.apellidos,
@@ -90,6 +101,21 @@ function UsersList() {
         if (name === 'cedula' && !/^\d*$/.test(value)) {
             return; // Detiene la función si el valor no es un número
         }
+        // Nueva validación para que solo permita letras y espacios en nombres y apellidos
+        if ((name === 'nombres' || name === 'apellidos') && !/^[a-zA-Z\s]*$/.test(value)) {
+            return;
+        }
+
+        // Normalización de nombres y apellidos
+        if (name === 'nombres' || name === 'apellidos') {
+            const words = value.split(' ');
+            newValue = words.map(word => {
+                if (word.length > 0) {
+                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                }
+                return '';
+            }).join(' ');
+        }
         setSelectedAux({
             ...selectedAux,
             [name]: value
@@ -115,7 +141,17 @@ function UsersList() {
     };
 
     //Estado del usuario//
-    const StatusBadge = ({ estado }) => {
+    const StatusBadge = ({ estado, rol }) => {
+
+        // Si el rol es administrador, siempre se muestra como activo
+        if (rol === 'Administrador') {
+            return (
+                <span className="status-badge active">
+                    Activo
+                </span>
+            );
+        }
+
         let statusClass = 'pending';
         let statusText = 'Pendiente';
 
@@ -139,7 +175,7 @@ function UsersList() {
         let roleClass = 'user';
         let roleText = 'Usuario';
 
-        if (role === 'administrador') {
+        if (role === 'Administrador') {
             roleClass = 'admin';
             roleText = 'Administrador';
         }
@@ -161,6 +197,12 @@ function UsersList() {
             return '';
         }).join(' ');
         return normalized;
+    };
+
+    const getMaxDate = () => {
+        const today = new Date();
+        today.setFullYear(today.getFullYear() - 18);
+        return today.toISOString().split('T')[0];
     };
 
     return (
@@ -199,7 +241,7 @@ function UsersList() {
                                         <td>{aux.fechaNacimiento || '-'}</td>
                                         <td>{calculateAge(aux.fechaNacimiento) || '-'}</td>
                                         <td>{aux.sexo || '-'}</td>
-                                        <td><StatusBadge estado={aux.estado} /></td>
+                                        <td><StatusBadge estado={aux.estado} rol={aux.rol} /></td>
                                         <td><RoleBadge role={aux.rol} /></td>
                                         <td>
                                             <Button
@@ -291,6 +333,7 @@ function UsersList() {
                                     name="fechaNacimiento"
                                     value={selectedAux.fechaNacimiento || ''}
                                     onChange={handleModalChange}
+                                    max={getMaxDate}
                                 />
                             </Form.Group>
                             <Form.Group className="mb-2">
@@ -309,8 +352,9 @@ function UsersList() {
                                 <Form.Label>Estado</Form.Label>
                                 <Form.Select
                                     name="estado"
-                                    value={selectedAux.estado || 'Pendiente'}
+                                    value={selectedAux.rol === 'Administrador' ? 'Activo' : selectedAux.estado || 'Pendiente'}
                                     onChange={handleModalChange}
+                                    disabled={selectedAux.rol === 'Administrador'}
                                 >
                                     <option>Pendiente</option>
                                     <option>Activo</option>
