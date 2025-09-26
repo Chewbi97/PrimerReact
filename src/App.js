@@ -18,6 +18,7 @@ import ProfilePage from "./Page/DashboradPage/ComponentsDashboard/DashboardNavba
 import DashboardContent from "./Page/DashboradPage/ComponentsDashboard/DashboardContent/DashboardContent"
 import DashboardLayout from "./Page/DashboradPage/DashboardLayout"
 import UsersList from "./Page/DashboradPage/ComponentsDashboard/DashboardUsersList/DashboardUserList"
+import Inventory from "./Page/DashboradPage/ComponentsDashboard/DashboardNavbar/Navbar/Inventario"
 
 
 
@@ -43,6 +44,7 @@ function App() {
         {/* Rutas protegidas */}
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+          <Route path="/inventory" element={<ProtectedRoute><Inventory/></ProtectedRoute>} />
           <Route path="/ProfilePage" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
           {/* Accesibles solo para administradores */}
           <Route path="/UsersList" element={<ProtectedRoute requiredRole="Administrador"><UsersList /></ProtectedRoute>} />

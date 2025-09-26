@@ -18,6 +18,8 @@ function DashboardNavbar() {
   const displayName = user?.displayName;
   const [userFirstName, setUserFirstName] = useState('');
   const userPhoto = user?.photoURL || userDefault;
+  const [userRole, setUserRole] = useState(null); 
+  const [isRoleLoading, setIsRoleLoading] = useState(true);
 
   const capitalizeName = (name) => {
     if (!name) return '';
@@ -108,7 +110,7 @@ function DashboardNavbar() {
             {/*<a href='/UsersList'>Usuarios</a>*/}
             <Nav.Link onClick={() => window.location.href = '/UsersList'}>Usuarios</Nav.Link>
             <Nav.Link onClick={() => navigate('/cronograma')}>Cronograma</Nav.Link>
-            <Nav.Link onClick={() => navigate('/opcion1')}>Opción 1</Nav.Link>
+            <Nav.Link onClick={() => navigate('/inventory')}>Inventario</Nav.Link>
             <Nav.Link onClick={() => navigate('/opcion2')}>Opción 2</Nav.Link>
             <NavDropdown id="basic-nav-dropdown" title={
               <span className="d-flex align-items-center gap-2">

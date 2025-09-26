@@ -2,10 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-function ProfileUser(){
+function Inventory(){
     return (
-    <div className="Perfil de Usuario">
-        <h1>dragon city</h1>
+    <div className="inventory">
+        <h1>Inventario</h1>
         
             <Link to="/dashboard">
             <button>atras</button>
@@ -15,4 +15,4 @@ function ProfileUser(){
 )};
 
 
-export default ProfileUser;
+export default Inventory;

@@ -37,4 +37,14 @@
   }
 }
 
+.main-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Se expande usando la altura completa del body */
+}
 
+.content {
+    flex-grow: 1; /* Esto es lo que empuja el footer */
+    background-color: white;
+    padding: 20px;
+}

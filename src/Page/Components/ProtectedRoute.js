@@ -8,7 +8,7 @@ import { doc, getDoc } from "firebase/firestore";
 
 function ProtectedRoute({ children, requiredRole }) {
   const [user, firebaseLoading] = useAuthState(auth);
-  const [hasRequiredRole, setHasRequiredRole, setHaspermission] = useState(false);
+  const [hasRequiredRole, setHasRequiredRole] = useState(false);
   const [isLoading, setIsLoading] = useState(true); 
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ function ProtectedRoute({ children, requiredRole }) {
     }
 
     const checkAccess = async () => {
-      console.log("checking")
+     
       // 1. Verificar si el usuario está autenticado
       // 1. Verificar si el usuario está autenticado
       if (!user) {
@@ -52,19 +52,18 @@ function ProtectedRoute({ children, requiredRole }) {
       // 2. Si la ruta no requiere un rol específico, el acceso es permitido
       if (!requiredRole) {
         setHasRequiredRole(true);
-        console.log("no tengonrole")
+       
         setIsLoading(false); // Detenemos la carga //
         return;
       }
       // 3. Si requiere un rol, obtener el documento del usuario
       const userDocRef = doc(db, 'usuarios', user.uid);
       const userDoc = getDoc(userDocRef).then((userDoc) => {
-        console.log("termina el firebase")
+       
         // Verificar si el rol coincide
         if (userDoc.exists() && userDoc.data().rol === requiredRole) {
           setHasRequiredRole(true);
-          setHaspermission(true);
-        } else {
+          } else {
           // El usuario no tiene el rol, mostramos la alerta y redirigimos
           Swal.fire({
             icon: "error",
