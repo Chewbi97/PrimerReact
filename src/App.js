@@ -18,7 +18,8 @@ import ProfilePage from "./Page/DashboradPage/ComponentsDashboard/DashboardNavba
 import DashboardContent from "./Page/DashboradPage/ComponentsDashboard/DashboardContent/DashboardContent"
 import DashboardLayout from "./Page/DashboradPage/DashboardLayout"
 import UsersList from "./Page/DashboradPage/ComponentsDashboard/DashboardUsersList/DashboardUserList"
-import Inventory from "./Page/DashboradPage/ComponentsDashboard/DashboardNavbar/Navbar/Inventario"
+import Inventory from "./Page/DashboradPage/ComponentsDashboard/DashboardNavbar/Navbar/Inventario/Inventario"
+import AddProducts from "./Page/DashboradPage/ComponentsDashboard/DashboardNavbar/Navbar/Inventario/AddProducts"
 
 
 
