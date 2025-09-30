@@ -84,50 +84,89 @@ npm install react-icons
 
 ## 📁 Estructura del Proyecto
 
-```plaintext
 /
 
 ├── public/
-│   └── favicon.ico           # Ícono de la aplicación
-│   ├── index.html            # Plantilla HTML principal de la app
-│   └── logo192.png           # Ícono de la aplicación
-│   └── logo512.png           # Ícono de la aplicación
-│   └── manifest.json         # Ícono de la aplicación
-│   └── robots.txt            # Ícono de la aplicación
+│   └── ... (Archivos inalterados: favicon.ico, index.html, etc.)
 ├── src/
-│   ├── Page                  # Punto de entrada principal
-│        ├── LoginPage        # Funcionamiento y visual del Login
-│               ├── LoginPage.css    # Página de Login
-│               ├── LoginPage.jsx    # Página de Login
-│   ├── App.css               # Estilo global de la app
-│   ├── App.js                # Funcionamiento del Login
-│   ├── App.test.js           # Escenario de pruebas rapidas
-│   ├── index.css             # Estilo del index
-│   │── index.js              # Procesos y funcionamiento de index  
-│   ├── logo.svg              # Logotipo del proyecto, usado en la interfaz
-│   ├── reportWebVitals.js    # Reporte de funcionamiento de la pagina
-│   └── setupTests.js         # Progama de pruebas
-├── .gitignore                # Archivos y carpetas git debe ignorar
-├── package-lock.json         # Registro exacto de las versiones de las dependecias usadas
-├── package.json              # Configuración de dependencias del proyecto
-└── README.md                 # Documentación del proyecto
-
-```
+│   ├── Page                  # Contiene las vistas principales de la aplicación
+│   │   ├── AuxiliarPage       # Página Auxiliar de Ejemplo
+│   │   │   ├── AuxiliarPage.css
+│   │   │   └── AuxiliarPage.jsx
+│   │   ├── DashboardPage      # Componentes del Dashboard y sus módulos
+│   │   │   ├── ComponentsDashboard
+│   │   │   │   ├── DashboardContent       # Contenido principal del Dashboard
+│   │   │   │   │   ├── DashboardContent.css
+│   │   │   │   │   └── DashboardContent.jsx
+│   │   │   │   ├── DashboardFooter        # Pie de página del Dashboard
+│   │   │   │   │   ├── DashboardFooter.css
+│   │   │   │   │   └── DashboardFooter.jsx
+│   │   │   │   └── DashboardNavbar        # Barra de navegación principal del Dashboard
+│   │   │   │       ├── Inventario         # Módulo de Inventario completo
+│   │   │   │       │   ├── AddProducts.jsx
+│   │   │   │       │   ├── Inventario.css
+│   │   │   │       │   ├── Inventario.jsx
+│   │   │   │       │   └── MovimientoInventario.jsx
+│   │   │   │       └── NavDropdown        # Componente de Menú Desplegable (Usuario)
+│   │   │   │           ├── ProfilePage.jsx
+│   │   │   │           ├── DashboardNavbar.css
+│   │   │   │           └── DashboardNavbar.jsx
+│   │   │   ├── DashboardLayout.css  # Estilo del Layout del Dashboard
+│   │   │   └── DashboardLayout.jsx  # Componente de Layout del Dashboard
+│   │   ├── ForgetPage         # Recuperación de Contraseña
+│   │   │   ├── ForgetPage.css
+│   │   │   └── ForgetPage.jsx
+│   │   ├── LoginPage          # Página de Inicio de Sesión
+│   │   │   ├── LoginPage.css
+│   │   │   └── LoginPage.jsx
+│   │   ├── RegisterPage       # Página de Registro de Usuario
+│   │   │   ├── RegisterPage.css
+│   │   │   └── RegisterPage.jsx
+│   │   └── ResetPasswordPage  # Restablecimiento de Contraseña
+│   │       ├── ResetPasswordPage.css
+│   │       └── ResetPasswordPage.jsx
+│   │   
+│   ├── Components             # Componentes Reutilizables (Navegación, Rutas, etc.)
+│   │   ├── NotFoundPages.jsx  # Página 404
+│   │   ├── ProtectedRoute.js  # Componente para proteger rutas
+│   │   └── Spinner.jsx        # Componente de carga
+│   │   
+│   ├── App.css               # Estilo global de la app
+│   ├── App.js                # Lógica principal y enrutamiento
+│   ├── App.test.js           # Escenario de pruebas rápidas
+│   ├── index.css             # Estilo del index
+│   │── index.js              # Procesos y funcionamiento de index  
+│   ├── logo.svg              # Logotipo del proyecto
+│   ├── reportWebVitals.js    # Reporte de funcionamiento de la página
+│   └── setupTests.js         # Programa de pruebas
+├── .gitignore                # Archivos y carpetas git debe ignorar
+├── package-lock.json         # Registro exacto de las versiones de las dependecias usadas
+├── package.json              # Configuración de dependencias del proyecto
+└── README.md                 # Documentación del proyecto
 ---
 
 ## 📅 Avance del Proyecto
 
-| Nº  | Fecha       | Descripción / Entregable                              |
-|-----|-------------|-------------------------------------------------------|
-| 1   | 2025-08-12  | Creación del proyecto con CRA                         |
-| 2   | 2025-08-15  | Creación de la estructura del README y PLAYGROUND     |
-| 3   | 2025-08-19  | Construcción de los hooks a usar en la app |
-| 4   | 2025-08-20  | Se realizan ajustes de la navegación en la app con React Route Dom |
-| 5   | 2025-08-21  | Se realizan ajustes de bootstrap y css para los modulos trabajados |
-| 6   | 2025-08-22  | Se hace la implementación de alertas a los diferentes modulos con sweetAlert |
-| 7   | 2025-08-25  | Se hace la creacion de usuario en Firebase y se relaciona al proyecto con el token |
-| 8   | 2025-08-26  | Se hacen ajustes en Firebase y se trabaja en el funcionamiento del Dashboard |
-| 9   | 2025-08-28  | Instalación y configuración de Bootstrap y SweetAlert2 |
+| Nº | Fecha | Descripción / Entregable |
+|:---:|:-------------:|:---|
+| 1 | 2025-08-12 | Inicialización del proyecto con **Create React App** y desarrollo de la funcionalidad inicial de **`LoginPage`**. |
+| 2 | 2025-08-15 | Configuración del **`README`** y creación de la interfaz principal del login junto con un contador en **`PLAYGROUND`**. |
+| 3 | 2025-08-19 | Se inicia el desarrollo de la app: **Login, Registro y Recuperación**. Se agregan funciones de *hook* al **`PLAYGROUND`**. Se corrigen rutas. |
+| 4 | 2025-08-20 | Se establecen las **bases de los estilos** para la página de inicio (Login). Se realizan ajustes de la navegación con **React Route Dom**. |
+| 5 | 2025-08-21 | Aplicación de **estilos con Bootstrap** y CSS para los módulos trabajados. |
+| 6 | 2025-08-22 | Finalización de la **configuración y estética del Login** (Bootstrap/CSS). Se hace la **implementación de alertas** con **SweetAlert**. |
+| 7 | 2025-08-25 | **Integración y configuración de Firebase**. Creación de usuario en Firebase y relación con el proyecto. Finalización del login y sus extensiones. |
+| 8 | 2025-08-26 | **Vinculación del navegador con el Dashboard**. Ajuste de la app con **Firebase y autenticador funcional**. Se trabaja en el funcionamiento del Dashboard. |
+| 9 | 2025-08-28 | Corrección de *bug* para el **`toggle` de contraseña**. Se agrega el componente de **Ruta Protegida**. Instalación y configuración final de Bootstrap y SweetAlert2. |
+| 10 | 2025-08-29 | Configuración de la **protección de rutas** y partición del Dashboard en componentes. |
+| 11 | 2025-09-02 | *Debugs* de **usuarios fantasmas y seguridad para rutas protegidas**. Se empieza la personalización del contenido. |
+| 12 | 2025-09-07 | Implementación de **`Layout` (plantilla)** para optimizar recursos. Se agrega **nombre de usuario al `Navbar`** y validaciones. |
+| 13 | 2025-09-22 | Creación del componente **Lista de Usuarios**. Funcionalidad para **modificar estados** y opciones de **borrado/actualización**. |
+| 14 | 2025-09-23 | **Validaciones para el modal y la tabla de usuarios**. Cambio de variables para usuarios registrados con Google. |
+| 15 | 2025-09-25 | Se resuelve *bug* de la **ruta protegida** para los componentes que requieren **rol de Administrador**. |
+| 16 | 2025-09-26 | Se establecen **propiedades de CSS** para el *layout* en el contenido. Se solucionan *bugs* de la **ruta protegida** para alertas de SweetAlert. |
+| 17 | 2025-09-27 | Creación del componente de **Inventario**. Primeras validaciones para **agregar productos** y menú de edición para la tabla. |
+| 18 | 2025-09-29 | **Optimización del componente de Inventario**. Aplicación de **estilo CSS** y corrección de *bugs* en el **despliegue del `Dropdown`** de acciones en la tabla. |
 
 > **Nota:** Ir actualizando la tabla con cada cambio o entregable.
 
