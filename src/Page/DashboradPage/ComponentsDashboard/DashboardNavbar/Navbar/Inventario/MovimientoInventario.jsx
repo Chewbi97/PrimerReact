@@ -34,13 +34,13 @@ const ModalMovimiento = ({ movimientoData, handleClose, onMovimientoExitoso }) =
 
         // 1. Validaciones
         if (cantidad <= 0 || isNaN(cantidad)) {
-            // 🚨 REEMPLAZO DE alert() por Swal.fire()
+            
             Swal.fire('Error de Cantidad', 'La cantidad debe ser un número positivo.', 'warning');
             return;
         }
 
         if (tipo === 'salida' && cantidad > producto.cantidad) {
-            // 🚨 REEMPLAZO DE alert() por Swal.fire()
+            
             Swal.fire('Stock Insuficiente', `La cantidad a sacar (${cantidad}) excede el stock actual (${producto.cantidad}).`, 'error');
             return;
         }
@@ -59,20 +59,18 @@ const ModalMovimiento = ({ movimientoData, handleClose, onMovimientoExitoso }) =
                 fechaUltimoMovimiento: new Date()
             });
 
-            // 🚨 REEMPLAZO DE alert() por Swal.fire() (Éxito)
             Swal.fire(
                 '¡Transacción Exitosa!',
                 `Movimiento de ${tipo} registrado correctamente.`,
                 'success'
             );
 
-            onMovimientoExitoso(); // Llama a la función del padre para recargar la tabla
-            handleModalClose(); // Cierra el modal localmente
-
+            onMovimientoExitoso(); 
+            handleModalClose(); 
         } catch (error) {
             console.error("Error al registrar movimiento:", error);
 
-            // 🚨 REEMPLAZO DE alert() por Swal.fire() (Error)
+            
             Swal.fire(
                 'Error de Servidor',
                 'Hubo un problema al registrar el movimiento. Inténtalo de nuevo.',
