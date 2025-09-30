@@ -82,67 +82,60 @@ npm install react-icons
 
 ---
 
-## 📁 Estructura del Proyecto
+## 📁 Estructura del Proyecto (Actualizada)
 
+```plaintext
 /
 
 ├── public/
 │   └── ... (Archivos inalterados: favicon.ico, index.html, etc.)
 ├── src/
 │   ├── Page                  # Contiene las vistas principales de la aplicación
-│   │   ├── AuxiliarPage       # Página Auxiliar de Ejemplo
+│   │   ├── AuxiliarPage
 │   │   │   ├── AuxiliarPage.css
 │   │   │   └── AuxiliarPage.jsx
-│   │   ├── DashboardPage      # Componentes del Dashboard y sus módulos
+│   │   ├── DashboardPage
 │   │   │   ├── ComponentsDashboard
-│   │   │   │   ├── DashboardContent       # Contenido principal del Dashboard
+│   │   │   │   ├── DashboardContent
 │   │   │   │   │   ├── DashboardContent.css
 │   │   │   │   │   └── DashboardContent.jsx
-│   │   │   │   ├── DashboardFooter        # Pie de página del Dashboard
+│   │   │   │   ├── DashboardFooter
 │   │   │   │   │   ├── DashboardFooter.css
 │   │   │   │   │   └── DashboardFooter.jsx
-│   │   │   │   └── DashboardNavbar        # Barra de navegación principal del Dashboard
-│   │   │   │       ├── Inventario         # Módulo de Inventario completo
+│   │   │   │   └── DashboardNavbar
+│   │   │   │       ├── Inventario         
 │   │   │   │       │   ├── AddProducts.jsx
 │   │   │   │       │   ├── Inventario.css
 │   │   │   │       │   ├── Inventario.jsx
 │   │   │   │       │   └── MovimientoInventario.jsx
-│   │   │   │       └── NavDropdown        # Componente de Menú Desplegable (Usuario)
+│   │   │   │       └── NavDropdown
 │   │   │   │           ├── ProfilePage.jsx
 │   │   │   │           ├── DashboardNavbar.css
 │   │   │   │           └── DashboardNavbar.jsx
-│   │   │   ├── DashboardLayout.css  # Estilo del Layout del Dashboard
-│   │   │   └── DashboardLayout.jsx  # Componente de Layout del Dashboard
-│   │   ├── ForgetPage         # Recuperación de Contraseña
+│   │   │   ├── DashboardLayout.css
+│   │   │   └── DashboardLayout.jsx
+│   │   ├── ForgetPage
 │   │   │   ├── ForgetPage.css
 │   │   │   └── ForgetPage.jsx
-│   │   ├── LoginPage          # Página de Inicio de Sesión
+│   │   ├── LoginPage
 │   │   │   ├── LoginPage.css
 │   │   │   └── LoginPage.jsx
-│   │   ├── RegisterPage       # Página de Registro de Usuario
+│   │   ├── RegisterPage
 │   │   │   ├── RegisterPage.css
 │   │   │   └── RegisterPage.jsx
-│   │   └── ResetPasswordPage  # Restablecimiento de Contraseña
+│   │   └── ResetPasswordPage
 │   │       ├── ResetPasswordPage.css
 │   │       └── ResetPasswordPage.jsx
 │   │   
-│   ├── Components             # Componentes Reutilizables (Navegación, Rutas, etc.)
-│   │   ├── NotFoundPages.jsx  # Página 404
-│   │   ├── ProtectedRoute.js  # Componente para proteger rutas
-│   │   └── Spinner.jsx        # Componente de carga
+│   ├── Components             # Componentes Reutilizables
+│   │   ├── NotFoundPages.jsx
+│   │   ├── ProtectedRoute.js
+│   │   └── Spinner.jsx
 │   │   
-│   ├── App.css               # Estilo global de la app
-│   ├── App.js                # Lógica principal y enrutamiento
-│   ├── App.test.js           # Escenario de pruebas rápidas
-│   ├── index.css             # Estilo del index
-│   │── index.js              # Procesos y funcionamiento de index  
-│   ├── logo.svg              # Logotipo del proyecto
-│   ├── reportWebVitals.js    # Reporte de funcionamiento de la página
-│   └── setupTests.js         # Programa de pruebas
-├── .gitignore                # Archivos y carpetas git debe ignorar
-├── package-lock.json         # Registro exacto de las versiones de las dependecias usadas
-├── package.json              # Configuración de dependencias del proyecto
-└── README.md                 # Documentación del proyecto
+│   ├── App.css 
+│   ├── App.js                
+│   └── index.js
+└── README.md
 ---
 
 ## 📅 Avance del Proyecto
@@ -170,4 +163,4 @@ npm install react-icons
 
 > **Nota:** Ir actualizando la tabla con cada cambio o entregable.
 
----
+---     
