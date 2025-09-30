@@ -1,0 +1,25 @@
+[debug] [2025-09-27T21:44:59.718Z] ----------------------------------------------------------------------
+[debug] [2025-09-27T21:44:59.724Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jsmd9\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-09-27T21:44:59.724Z] CLI Version:   14.14.0
+[debug] [2025-09-27T21:44:59.724Z] Platform:      win32
+[debug] [2025-09-27T21:44:59.725Z] Node Version:  v22.18.0
+[debug] [2025-09-27T21:44:59.725Z] Time:          Sat Sep 27 2025 16:44:59 GMT-0500 (hora estándar de Colombia)
+[debug] [2025-09-27T21:44:59.725Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-27T21:45:00.046Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-27T21:45:00.047Z] > authorizing via signed-in user (juanse072010@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\jsmd9\Desktop\Programación\PrimerReact
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
