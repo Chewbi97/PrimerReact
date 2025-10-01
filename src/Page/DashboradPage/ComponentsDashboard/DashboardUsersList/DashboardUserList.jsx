@@ -69,6 +69,8 @@ function UsersList() {
                 });
                 return; // Detiene la función y no guarda los cambios
             }
+            
+            // ✅ CAMBIO CLAVE: Incluir 'rol' en la actualización de Firestore
             await updateDoc(auxRef, {
                 nombres: selectedAux.nombres,
                 apellidos: selectedAux.apellidos,
@@ -77,7 +79,8 @@ function UsersList() {
                 email: selectedAux.email,
                 fechaNacimiento: selectedAux.fechaNacimiento,
                 sexo: selectedAux.sexo,
-                estado: selectedAux.estado
+                estado: selectedAux.estado,
+                rol: selectedAux.rol // ✅ GUARDAR NUEVO ROL
             });
 
             setAuxiliares(auxiliares.map(a =>
@@ -95,36 +98,36 @@ function UsersList() {
     const handleModalChange = (e) => {
         const { name, value } = e.target;
         let newValue = value;
-        if (name === 'telefono' && !/^\d*$/.test(value)) {
-            return; // Detiene la función si el valor no es un número
+        
+        // Validación de números y letras
+        if ((name === 'telefono' || name === 'cedula') && !/^\d*$/.test(value)) {
+            return; 
         }
-        if (name === 'cedula' && !/^\d*$/.test(value)) {
-            return; // Detiene la función si el valor no es un número
-        }
-        // Nueva validación para que solo permita letras y espacios en nombres y apellidos
         if ((name === 'nombres' || name === 'apellidos') && !/^[a-zA-Z\s]*$/.test(value)) {
             return;
         }
 
         // Normalización de nombres y apellidos
         if (name === 'nombres' || name === 'apellidos') {
-            const words = value.split(' ');
-            newValue = words.map(word => {
+             const words = value.split(' ');
+             newValue = words.map(word => {
                 if (word.length > 0) {
                     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
                 }
                 return '';
-            }).join(' ');
+             }).join(' ');
         }
+        
+        // Aplicar el nuevo valor (ya sea normalizado o el valor original)
         setSelectedAux({
             ...selectedAux,
-            [name]: value
+            [name]: newValue 
         });
     };
 
-    //Edad del usuario//
+    //Edad del usuario
     const calculateAge = (birthDate) => {
-        if (!birthDate) return '-'; // Maneja los casos en que no hay fecha de nacimiento
+        if (!birthDate) return '-'; 
 
         const today = new Date();
         const dob = new Date(birthDate);
@@ -132,7 +135,6 @@ function UsersList() {
         let age = today.getFullYear() - dob.getFullYear();
         const monthDifference = today.getMonth() - dob.getMonth();
 
-        // Si el mes actual es menor que el mes de nacimiento, o si es el mismo mes pero el día actual es menor que el día de nacimiento, resta 1 a la edad.
         if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dob.getDate())) {
             age--;
         }
@@ -140,11 +142,11 @@ function UsersList() {
         return age;
     };
 
-    //Estado del usuario//
+    //Estado del usuario
     const StatusBadge = ({ estado, rol }) => {
 
         // Si el rol es administrador, siempre se muestra como activo
-        if (rol === 'Administrador') {
+        if (rol === 'administrador') {
             return (
                 <span className="status-badge active">
                     Activo
@@ -170,12 +172,12 @@ function UsersList() {
         );
     };
 
-    //Roles//
+    //Roles
     const RoleBadge = ({ role }) => {
         let roleClass = 'user';
         let roleText = 'Usuario';
 
-        if (role === 'Administrador') {
+        if (role === 'administrador') {
             roleClass = 'admin';
             roleText = 'Administrador';
         }
@@ -209,7 +211,7 @@ function UsersList() {
 
         <>
             <main className="main-content">
-                <Container fluidclassName="mt-4">
+                <Container fluid className="mt-4">
                     <h2 className="page-title text-center mb-4">
                         Usuarios
                     </h2>
@@ -271,12 +273,14 @@ function UsersList() {
             {/* MODAL EDICIÓN */}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Editar Auxiliar</Modal.Title>
+                    <Modal.Title>Editar Usuario: {selectedAux?.nombres}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {selectedAux && (
                         <Form>
-                            <Form.Group className="mb-2">
+                            {/* Campos de texto y selección de Sexo (permanecen iguales) */}
+                            {/* ... (código para Nombres, Apellidos, Cédula, Teléfono, Email, Fecha de Nacimiento, Sexo) ... */}
+                             <Form.Group className="mb-2">
                                 <Form.Label>Nombres</Form.Label>
                                 <Form.Control
                                     type="text"
@@ -333,7 +337,7 @@ function UsersList() {
                                     name="fechaNacimiento"
                                     value={selectedAux.fechaNacimiento || ''}
                                     onChange={handleModalChange}
-                                    max={getMaxDate}
+                                    max={getMaxDate()}
                                 />
                             </Form.Group>
                             <Form.Group className="mb-2">
@@ -348,17 +352,42 @@ function UsersList() {
                                     <option value="Femenino">Femenino</option>
                                 </Form.Select>
                             </Form.Group>
+
+
+                            {/* 🆕 CAMPO DE ROL AÑADIDO 🆕 */}
+                            <Form.Group className="mb-2">
+                                <Form.Label>Rol</Form.Label>
+                                <Form.Select
+                                    name="rol"
+                                    value={selectedAux.rol || 'usuario'} // Aseguramos un valor por defecto
+                                    onChange={handleModalChange}
+                                >
+                                    <option value="usuario">Usuario</option>
+                                    <option value="administrador">Administrador</option>
+                                </Form.Select>
+                            </Form.Group>
+
+                            {/* 🔄 CAMPO DE ESTADO ACTUALIZADO con lógica condicional 🔄 */}
                             <Form.Group className="mb-2">
                                 <Form.Label>Estado</Form.Label>
                                 <Form.Select
                                     name="estado"
-                                    value={selectedAux.rol === 'Administrador' ? 'Activo' : selectedAux.estado || 'Pendiente'}
+                                    // 🚨 VALOR: Si es Admin, el estado siempre es Activo. Si no, usa el valor guardado.
+                                    value={selectedAux.rol === 'administrador' ? 'Activo' : selectedAux.estado || 'Pendiente'}
                                     onChange={handleModalChange}
-                                    disabled={selectedAux.rol === 'Administrador'}
+                                    // 🚨 DESHABILITAR: Si es Admin, no permitimos cambiar el estado.
+                                    disabled={selectedAux.rol === 'administrador'} 
                                 >
-                                    <option>Pendiente</option>
-                                    <option>Activo</option>
-                                    <option>Inactivo</option>
+                                    {/* 🚨 OPCIONES: Si es Admin, solo se muestra Activo. Si no, se muestran todas. */}
+                                    {selectedAux.rol === 'administrador' ? (
+                                        <option>Activo</option>
+                                    ) : (
+                                        <>
+                                            <option>Pendiente</option>
+                                            <option>Activo</option>
+                                            <option>Inactivo</option>
+                                        </>
+                                    )}
                                 </Form.Select>
                             </Form.Group>
                         </Form>

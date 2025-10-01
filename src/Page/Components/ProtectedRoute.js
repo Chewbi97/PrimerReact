@@ -1,91 +1,105 @@
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "../../firebase";
-import Spinner from "./Spinner";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { useNavigate, Outlet } from "react-router-dom";
+import { useAuth } from "./AuthContext";
+import Spinner from "./Spinner"; 
 
 function ProtectedRoute({ children, requiredRole }) {
-  const [user, firebaseLoading] = useAuthState(auth);
-  const [hasRequiredRole, setHasRequiredRole] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); 
-  const navigate = useNavigate();
+    // USAMOS EL HOOK PARA OBTENER EL ESTADO GLOBAL
+    const { user, firebaseLoading, isRoleLoading, userRole } = useAuth(); 
+    
+    // 🚨 1. ESTADO PARA VERIFICAR SI EL COMPONENTE ESTÁ MONTADO 🚨
+    const isMounted = useRef(true); 
+    
+    const [canAccess, setCanAccess] = useState(false);
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    // Si la autenticación está cargando, no hacer nada.
+    // Esperamos a que todo esté cargado (Firebase y Rol)
+    const isLoading = firebaseLoading || isRoleLoading;
+    
+    // 🚨 2. EFECTO PARA LIMPIAR EL REF CUANDO EL COMPONENTE SE DESMONTA 🚨
+    useEffect(() => {
+        return () => {
+            isMounted.current = false;
+        };
+    }, []);
 
-    if (firebaseLoading) {
-      return;
-    }
-
-    const checkAccess = async () => {
-     
-      // 1. Verificar si el usuario está autenticado
-      // 1. Verificar si el usuario está autenticado
-      if (!user) {
-        
-        // 🚨 MODIFICACIÓN CLAVE: Verificamos si es un logout intencional
-        const isLoggingOut = sessionStorage.getItem('isLoggingOut');
-
-        if (isLoggingOut === 'true') {
-            // Es un logout: limpiamos la bandera y redirigimos sin alerta
-            sessionStorage.removeItem('isLoggingOut'); 
-            navigate("/", { replace: true });
-            setIsLoading(false);
+    useEffect(() => {
+        if (isLoading) {
+            setCanAccess(false);
             return;
         }
 
-        // Si la bandera NO está puesta, es un intento de acceso directo (¡Mostramos la alerta!)
-        Swal.fire({
-          icon: "warning",
-          title: "Acceso restringido",
-          text: "Debes iniciar sesión para acceder a esta página.",
-          confirmButtonText: "Ok",
-        }).then(() => {
-          navigate("/", { replace: true });
-        });
-        setIsLoading(false); 
-        return;
-      }
+        const isLoggingOut = sessionStorage.getItem('isLoggingOut') === 'true';
 
-      // 2. Si la ruta no requiere un rol específico, el acceso es permitido
-      if (!requiredRole) {
-        setHasRequiredRole(true);
-       
-        setIsLoading(false); // Detenemos la carga //
-        return;
-      }
-      // 3. Si requiere un rol, obtener el documento del usuario
-      const userDocRef = doc(db, 'usuarios', user.uid);
-      const userDoc = getDoc(userDocRef).then((userDoc) => {
-       
-        // Verificar si el rol coincide
-        if (userDoc.exists() && userDoc.data().rol === requiredRole) {
-          setHasRequiredRole(true);
-          } else {
-          // El usuario no tiene el rol, mostramos la alerta y redirigimos
-          Swal.fire({
-            icon: "error",
-            title: "Acceso denegado",
-            text: "No tienes permisos para acceder a esta página.",
-            confirmButtonText: "Ok",
-          }).then(() => {
-            navigate("/dashboard", { replace: true });
-          });
+        // 1. Verificar si el usuario está autenticado
+        if (!user) {
+            setCanAccess(false);
+
+            // 1a. Priorizar el Cierre de Sesión (SIN ALERTA)
+            if (isLoggingOut) {
+                sessionStorage.removeItem('isLoggingOut'); 
+                navigate("/", { replace: true }); 
+                return; 
+            }
+
+            // 1b. Acceso Restringido (CON ALERTA)
+            if (isMounted.current) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Acceso restringido",
+                    text: "Debes iniciar sesión para acceder a esta página.",
+                    confirmButtonText: "Ok",
+                }).then(() => {
+                    if (isMounted.current) { 
+                        navigate("/", { replace: true });
+                    }
+                });
+            }
+            
+            return; 
         }
-        setIsLoading(false); // Detenemos la carga
-      })
-    };
-    checkAccess();
-  }, [user, firebaseLoading, navigate, requiredRole]);
-  // Si está cargando, siempre mostramos el spinner
-  if (isLoading) {
-    return <Spinner />;
-  }
-  // Si el proceso de carga ha terminado y tiene el rol, renderizamos los componentes
-  //return children ? children : <Spinner/>;
-  return hasRequiredRole ? children : <Spinner />;
+
+        // 2. Verificar el Rol (Si no se requiere rol, acceso permitido)
+        if (!requiredRole) {
+            setCanAccess(true);
+            return;
+        }
+        
+        // 3. Si se requiere rol, verificar coincidencia
+        if (userRole === requiredRole) {
+            setCanAccess(true);
+        } else {
+            // 🚨 CORRECCIÓN CLAVE AQUÍ: REDIRECCIÓN FORZADA 🚨
+            setCanAccess(false);
+
+            // 1. Mostrar la alerta de acceso denegado
+            if (isMounted.current) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Acceso denegado",
+                    text: "No tienes permisos para acceder a esta página.",
+                    confirmButtonText: "Ok",
+                });
+            }
+            
+            // 2. Navegación forzada inmediata (ESTO EVITA LA PANTALLA EN BLANCO)
+            // Ya que el usuario no tiene el rol, lo mandamos al dashboard principal sin esperar al click.
+            navigate("/dashboard", { replace: true }); 
+
+            // Dejamos que la navegación haga el 'return', pero la lógica de React necesita el setCanAccess.
+            // Si la navegación es instantánea, el return del useEffect ya no es necesario aquí.
+        }
+        
+    }, [user, userRole, isLoading, navigate, requiredRole]);
+
+    // Si está cargando, siempre mostramos el spinner
+    if (isLoading) {
+        return <Spinner />;
+    }
+    
+    // Si el proceso de carga ha terminado y tiene acceso, renderizamos los componentes
+    return canAccess ? <Outlet /> : null;  
 }
 
 export default ProtectedRoute;

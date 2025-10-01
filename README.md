@@ -73,9 +73,10 @@ npm install react-icons
 |------------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
 | **HTML5**              | ![HTML5](https://img.icons8.com/color/48/html-5--v1.png)              | Lenguaje de marcado usado para estructurar las páginas web.                                  |
 | **CSS3**               | ![CSS3](https://img.icons8.com/color/48/css3.png)                     | Hojas de estilo para personalizar la apariencia de la web.                                   |
-| **Bootstrap 5**        | ![Bootstrap](https://img.icons8.com/color/48/bootstrap.png)           | Framework CSS para facilitar el diseño responsive y atractivo.                               |
 | **JavaScript**         | ![JS](https://img.icons8.com/color/48/javascript--v1.png)             | Lenguaje de programación para la lógica y la interactividad en la web.                       |
+| **Bootstrap 5**        | ![Bootstrap](https://img.icons8.com/color/48/bootstrap.png)           | Framework CSS para facilitar el diseño responsive y atractivo.                               |
 | **React**              | ![React](https://img.icons8.com/color/48/react-native.png)            | Biblioteca de JavaScript para construir interfaces de usuario basadas en componentes.        |
+| **React-Bootstrap**   | <img src="https://avatars.githubusercontent.com/u/6853419?s=200&v=4" width="40"/>     | Reimplementa los componentes de Bootstrap (como Tablas y Modals) como componentes React puros, lo que permite controlarlos totalmente con estados y propiedades (props).    |
 | **Create React App**   | <img src="https://th.bing.com/th/id/R.2bee11a830bacc5ae9006df56b20c33a?rik=nXUBy4boCTrW8w&pid=ImgRaw&r=0" width="40"/>     | Herramienta oficial para crear proyectos React con configuración inicial lista para usar.    |
 | **SweetAlert2**        | <img src="https://tse1.explicit.bing.net/th/id/OIP.sbHWbfQY-VMmVDzT71z8vgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" width="40"/>   | Librería JS para mostrar alertas modernas, elegantes y perso nalizadas. |
 | **FireBase**        | <img src="https://firebase.google.com/static/images/brand-guidelines/logo-vertical.png?hl=es-419" width="40"/>   | Servicio de DataBase, autenticación y demás herramientas para soporte de datos. |

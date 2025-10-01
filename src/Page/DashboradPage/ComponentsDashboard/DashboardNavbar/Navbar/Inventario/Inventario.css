@@ -4,31 +4,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%; 
-    padding: 20px; 
+    width: 100%;
+    padding: 20px;
 }
 
 /* 2. Sección del Contenido (Tabla, Buscador, etc.)     */
 
 .inventario-table-section {
-     width: 85%;
+    width: 85%;
     max-width: 1200px;
     margin-top: 30px;
-    /* overflow: visible !important;  */
-    /* position: static !important;  */
 }
 
 /* 3. Título (Alineación y Estilo)                      */
 
 .inventario-header {
-    width: 85%; 
+    width: 85%;
     max-width: 1200px;
     margin-bottom: 20px;
 }
 
 .inventario-header h1 {
-    color: #4a4a4a; 
-    border-bottom: 2px solid #5a57a5; 
+    color: #4a4a4a;
+    border-bottom: 2px solid #5a57a5;
     padding-bottom: 5px;
     font-size: 2.5rem;
 }
@@ -39,27 +37,26 @@
 .fab-container {
     width: 85%;
     max-width: 1200px;
-    display: flex; 
-    justify-content: flex-end; 
-    margin-bottom: 20px; 
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
 }
-.fab-button.btn-primary{
+
+.fab-button.btn-primary {
     background-color: #9539e0;
-    border-color: #9539e0; 
+    border-color: #9539e0;
 }
+
 .fab-button.btn-primary:hover {
-    background-color: #b050ff !important; 
+    background-color: #b050ff !important;
     border-color: #b050ff !important;
 }
+
 .fab-button {
     padding: 10px 20px;
     font-size: 1rem;
     border-radius: 25px;
 }
-
-
-
-
 
 /* 4. Tabla (Hover y Apariencia)                        */
 
@@ -68,25 +65,31 @@
 }
 
 .inventory-table {
-    border: 1px solid #ddd; 
-    border-radius: 8px; 
-    /* overflow: hidden;  */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s;
 }
 
 /* ESTILO HOVER (Resaltar Fila) */
 .inventory-table tbody tr:hover {
-    background-color: #f0f0ff !important; 
-    cursor: pointer; 
-    
-} 
+    background-color: #f0f0ff !important;
+    cursor: pointer;
+
+}
 
 .dropdown-acciones {
     z-index: 20;
 }
+
 /* Hack bootstrap */
 div.dropdown-menu.show {
     position: absolute !important;
     z-index: 9999;
+}
+
+/* 5. Buscador de Productos                               */
+.inventario-header .form-control {
+    margin-top: 5px;
+    max-width: 400px;
 }

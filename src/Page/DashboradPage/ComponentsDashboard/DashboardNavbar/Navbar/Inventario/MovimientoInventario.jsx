@@ -4,43 +4,43 @@ import Swal from "sweetalert2";
 import { db } from "../../../../../../firebase";
 import { doc, updateDoc, increment } from "firebase/firestore";
 
-// Renombrado el componente para mayor claridad
-const ModalMovimiento = ({ movimientoData, handleClose, onMovimientoExitoso }) => {
+// 🚨 CORRECCIÓN CLAVE 1: Recibir la prop 'user' 🚨
+const ModalMovimiento = ({ user, movimientoData, handleClose, onMovimientoExitoso }) => {
 
-    // Desestructuramos las props para usar show, tipo, y producto fácilmente
     const { show, tipo, producto } = movimientoData;
 
     const [cantidadMovida, setCantidadMovida] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
 
-    // Reinicia el estado local y llama a la función de cierre del padre
     const handleModalClose = () => {
         setCantidadMovida(0);
         handleClose();
     };
 
-    // Título dinámico
     const modalTitle = tipo === 'entrada'
         ? `Registrar Entrada de: ${producto?.nombre}`
         : `Registrar Salida de: ${producto?.nombre}`;
 
-    // Lógica para registrar la entrada o salida
-    // MovimientoInventario.jsx (Dentro de la función handleSubmit)
-
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        // 🚨 CORRECCIÓN CLAVE 2: Obtener y validar el UID 🚨
+        const uid = user?.uid;
+        if (!uid) {
+            Swal.fire('Error', 'No se pudo identificar al usuario para registrar el movimiento.', 'error');
+            return;
+        }
+
 
         const cantidad = parseInt(cantidadMovida);
 
         // 1. Validaciones
         if (cantidad <= 0 || isNaN(cantidad)) {
-            
             Swal.fire('Error de Cantidad', 'La cantidad debe ser un número positivo.', 'warning');
             return;
         }
 
         if (tipo === 'salida' && cantidad > producto.cantidad) {
-            
             Swal.fire('Stock Insuficiente', `La cantidad a sacar (${cantidad}) excede el stock actual (${producto.cantidad}).`, 'error');
             return;
         }
@@ -48,8 +48,9 @@ const ModalMovimiento = ({ movimientoData, handleClose, onMovimientoExitoso }) =
         setIsLoading(true);
 
         try {
-            // Referencia al documento en Firestore
-            const productoRef = doc(db, 'inventario', producto.id);
+            // ✅ CORREGIDO: Referencia al documento en la subcolección del usuario
+            // Ruta: inventario / {user.uid} / inventario / {producto.id}
+            const productoRef = doc(db, 'inventario', uid, 'inventario', producto.id);
 
             // Si es entrada, suma (+); si es salida, resta (-)
             const valorCambio = tipo === 'entrada' ? cantidad : -cantidad;
@@ -69,11 +70,10 @@ const ModalMovimiento = ({ movimientoData, handleClose, onMovimientoExitoso }) =
             handleModalClose(); 
         } catch (error) {
             console.error("Error al registrar movimiento:", error);
-
             
             Swal.fire(
                 'Error de Servidor',
-                'Hubo un problema al registrar el movimiento. Inténtalo de nuevo.',
+                'Hubo un problema al registrar el movimiento. Permisos insuficientes (FireStore rules) o error de conexión.',
                 'error'
             );
 
@@ -83,7 +83,6 @@ const ModalMovimiento = ({ movimientoData, handleClose, onMovimientoExitoso }) =
     };
 
 
-    // No renderiza el modal si no está visible o si no hay producto seleccionado
     if (!show || !producto) return null;
 
     return (
@@ -118,4 +117,4 @@ const ModalMovimiento = ({ movimientoData, handleClose, onMovimientoExitoso }) =
     );
 };
 
-export default ModalMovimiento; // Renombrado en la exportación
+export default ModalMovimiento;
